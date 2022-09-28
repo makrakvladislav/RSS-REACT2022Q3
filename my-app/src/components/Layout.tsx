@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Header from 'components/UI/Header/Header';
+import Header from 'components/Header';
 import { Outlet } from 'react-router-dom';
-import Footer from './UI/Footer/Footer';
+import Footer from './Footer';
 
 class Layout extends Component {
   render() {

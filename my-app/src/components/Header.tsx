@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Menu from '../Menu/Menu';
-import Search from '../Search/Search';
+import Menu from './UI/Menu/Menu';
+import Search from './UI/Search/Search';
 
 export class Header extends Component {
   render() {
