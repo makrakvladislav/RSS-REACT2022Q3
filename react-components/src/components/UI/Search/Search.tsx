@@ -1,10 +1,31 @@
+import ISearchState from 'interface/ISearchState';
 import React, { Component } from 'react';
 
-export class Search extends Component {
+export class Search extends Component<Record<string, never>, ISearchState> {
+  constructor(props: Record<string, never>) {
+    super(props);
+    this.state = {
+      value: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({ value: e.target.value });
+  }
+
+  componentDidMount() {
+    this.setState({ value: localStorage.getItem('searchQuery') });
+  }
+
+  componentWillUnmount() {
+    localStorage.setItem('searchQuery', `${this.state.value}`);
+  }
+
   render() {
     return (
       <>
-        <form className="flex-1 max-w-sm">
+        <form className="flex-1 mt-8 mb-8 max-w-sm mx-auto">
           <div className="relative">
             <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
               <svg
@@ -27,7 +48,9 @@ export class Search extends Component {
               type="search"
               id="default-search"
               className="block p-3 pl-10 pr-20 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Search..."
+              value={!this.state.value ? '' : this.state.value}
+              placeholder={!this.state.value ? 'Search...' : this.state.value}
+              onChange={this.handleChange}
               required
             />
             <button
