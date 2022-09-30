@@ -4,7 +4,7 @@ import { NavLink, Link } from 'react-router-dom';
 class Menu extends Component {
   render() {
     return (
-      <nav className="flex w-3/6 content-center">
+      <nav className="flex w-full content-center">
         <div className="container flex flex-wrap justify-between items-center mx-auto">
           <Link to="/" className="flex items-center">
             <span className="self-center text-xl font-semibold whitespace-nowrap">React App</span>
