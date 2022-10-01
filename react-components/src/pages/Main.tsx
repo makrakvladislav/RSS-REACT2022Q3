@@ -16,7 +16,7 @@ class Main extends Component<Record<string, never>, IMyState> {
 
   async componentDidMount() {
     const response = await Data.getData();
-    this.setState({ items: response, isFetching: true });
+    if (response !== undefined) this.setState({ items: response, isFetching: true });
   }
 
   render() {
