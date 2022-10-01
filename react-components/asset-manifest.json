@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/makrakvladislav-REACT2022Q3/react-components/static/css/main.f878b803.css",
+    "main.js": "/makrakvladislav-REACT2022Q3/react-components/static/js/main.17de6178.js",
+    "static/js/787.28cb0dcd.chunk.js": "/makrakvladislav-REACT2022Q3/react-components/static/js/787.28cb0dcd.chunk.js",
+    "index.html": "/makrakvladislav-REACT2022Q3/react-components/index.html",
+    "main.f878b803.css.map": "/makrakvladislav-REACT2022Q3/react-components/static/css/main.f878b803.css.map",
+    "main.17de6178.js.map": "/makrakvladislav-REACT2022Q3/react-components/static/js/main.17de6178.js.map",
+    "787.28cb0dcd.chunk.js.map": "/makrakvladislav-REACT2022Q3/react-components/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f878b803.css",
+    "static/js/main.17de6178.js"
+  ]
+}
