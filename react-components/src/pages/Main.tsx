@@ -1,6 +1,6 @@
-import CardsList from 'components/CardsList';
-import Loader from 'components/UI/Loader/Loader';
-import Search from 'components/UI/Search/Search';
+import CardsList from '../components/CardsList';
+import Loader from '../components/UI/Loader/Loader';
+import Search from '../components/UI/Search/Search';
 import React, { Component } from 'react';
 import Data from '../api/api';
 import IMyState from '../interface/IMyState';

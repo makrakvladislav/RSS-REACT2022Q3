@@ -1,4 +1,4 @@
-import ISearchState from 'interface/ISearchState';
+import ISearchState from '../../../interface/ISearchState';
 import React, { Component } from 'react';
 
 export class Search extends Component<Record<string, never>, ISearchState> {
