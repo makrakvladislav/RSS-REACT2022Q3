@@ -1,5 +1,5 @@
 import axios from 'axios';
-import ICard from 'interface/ICard';
+import ICard from '../interface/ICard';
 
 export default class Data {
   static async getData(): Promise<Array<ICard> | undefined> {
