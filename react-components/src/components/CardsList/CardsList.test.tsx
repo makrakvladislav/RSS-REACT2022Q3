@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import CardList from './CardsList';
 import axios, { AxiosResponse } from 'axios';
-import Api from '../api/api';
+import Api from '../../api/api';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;

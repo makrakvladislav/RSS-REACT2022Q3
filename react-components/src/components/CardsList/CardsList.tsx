@@ -1,6 +1,7 @@
+import Card from 'components/Card/Card';
 import React, { Component } from 'react';
-import Card from './UI/Card/Card';
-import IMyState from '../interface/IMyState';
+
+import IMyState from '../../interface/IMyState';
 
 class CardsList extends Component<IMyState> {
   state: IMyState = {

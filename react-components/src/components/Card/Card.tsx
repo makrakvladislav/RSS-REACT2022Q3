@@ -1,5 +1,5 @@
-import ICardState from '../../../interface/ICardState';
-import IMyProps from '../../../interface/IMyProps';
+import ICardState from '../../interface/ICardState';
+import IMyProps from '../../interface/IMyProps';
 import React, { Component } from 'react';
 
 export class Card extends Component<IMyProps, ICardState> {
