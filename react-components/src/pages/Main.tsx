@@ -15,17 +15,16 @@ class Main extends Component<Record<string, never>, IMyState> {
   }
 
   async componentDidMount() {
-    const response = await Data.getData();
-    if (response !== undefined) this.setState({ items: response, isFetching: true });
+    const response = await Data.getData(12, 1);
+    if (response !== undefined) this.setState({ items: response.items, isFetching: true });
   }
 
   render() {
-    const data = this.state.items;
     return (
       <>
         <h1>Main page</h1>
         <Search />
-        {this.state.isFetching ? <CardsList items={data} /> : <Loader />}
+        {this.state.isFetching ? <CardsList items={this.state.items} /> : <Loader />}
       </>
     );
   }

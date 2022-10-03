@@ -32,7 +32,7 @@ test('should return data array', async () => {
 
   mockedAxios.get.mockResolvedValueOnce(mockedResponse);
   expect(axios.get).not.toHaveBeenCalled();
-  const response = await Api.getData();
+  const response = await Api.getData(10, 1);
   expect(axios.get).toHaveBeenCalled();
   expect(response).toEqual(mockedData);
 });
