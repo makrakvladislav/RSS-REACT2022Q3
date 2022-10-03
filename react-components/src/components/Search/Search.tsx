@@ -19,7 +19,9 @@ export class Search extends Component<Record<string, never>, ISearchState> {
   }
 
   componentWillUnmount() {
-    localStorage.setItem('searchQuery', `${this.state.value}`);
+    if (this.state.value !== null) {
+      localStorage.setItem('searchQuery', `${this.state.value}`);
+    }
   }
 
   render() {
