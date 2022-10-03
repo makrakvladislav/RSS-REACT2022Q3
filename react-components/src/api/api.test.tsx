@@ -34,5 +34,5 @@ test('should return data array', async () => {
   expect(axios.get).not.toHaveBeenCalled();
   const response = await Api.getData(10, 1);
   expect(axios.get).toHaveBeenCalled();
-  expect(response).toEqual(mockedData);
+  if (response !== undefined) expect(response.items).toEqual(mockedData);
 });

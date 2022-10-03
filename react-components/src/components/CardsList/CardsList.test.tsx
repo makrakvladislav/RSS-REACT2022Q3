@@ -36,6 +36,9 @@ test('Get Cardslist', async () => {
   expect(axios.get).not.toHaveBeenCalled();
   const response = await Api.getData(10, 1);
   expect(axios.get).toHaveBeenCalled();
-  expect(response).toEqual(mockedData);
-  if (response !== undefined) render(<CardList items={response.items} />);
+
+  if (response !== undefined) {
+    expect(response.items).toEqual(mockedData);
+    render(<CardList items={response.items} />);
+  }
 });
