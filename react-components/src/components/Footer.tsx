@@ -27,6 +27,11 @@ class Footer extends Component {
                 About us
               </NavLink>
             </li>
+            <li>
+              <NavLink to="/forms" className="mr-4 font-medium hover:underline">
+                Forms
+              </NavLink>
+            </li>
           </ul>
         </footer>
       </>

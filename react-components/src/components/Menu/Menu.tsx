@@ -28,6 +28,14 @@ class Menu extends Component {
                   About us
                 </NavLink>
               </li>
+              <li>
+                <NavLink
+                  to="/forms"
+                  className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+                >
+                  Forms
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>

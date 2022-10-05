@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import Main from './pages/Main';
 import NotFound from './pages/404';
 import About from './pages/About';
+import Forms from './pages/Forms';
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Main />} />
             <Route path="about" element={<About />} />
+            <Route path="forms" element={<Forms />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
