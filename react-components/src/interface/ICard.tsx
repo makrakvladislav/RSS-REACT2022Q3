@@ -1,4 +1,4 @@
-export default interface IData {
+export default interface ICard {
   albumId: number;
   id: number;
   thumbnailUrl: string;
