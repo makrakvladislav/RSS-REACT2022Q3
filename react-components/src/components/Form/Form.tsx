@@ -65,7 +65,6 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
     this.setState((prevState) => {
       return { ...prevState, disableSubmit: false };
     });
-    if (input.name === 'avatar') console.log(input.value);
 
     if (this.state.formSubmited) {
       if (
@@ -173,7 +172,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             name="name"
             ref={this.name}
             placeholder="Name"
-            errorstate={this.state.nameError}
+            errorstate={+this.state.nameError}
             errormessage="Name should contains at least 3 characters"
             onChange={this.changeHandler}
           />
@@ -184,7 +183,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             name="lastName"
             ref={this.lastName}
             placeholder="Last Name"
-            errorstate={this.state.lastNameError}
+            errorstate={+this.state.lastNameError}
             errormessage="last Name should contains at least 3 characters"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
@@ -195,7 +194,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             name="birthday"
             ref={this.birthday}
             placeholder="Birthday date"
-            errorstate={this.state.birthdayError}
+            errorstate={+this.state.birthdayError}
             errormessage="Input correct birthday date"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
@@ -206,7 +205,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             name="email"
             ref={this.email}
             placeholder="Email"
-            errorstate={this.state.emailError}
+            errorstate={+this.state.emailError}
             errormessage="Wrong email"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
@@ -217,7 +216,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             name="avatar"
             ref={this.avatar}
             placeholder="Avatar"
-            errorstate={this.state.avatarError}
+            errorstate={+this.state.avatarError}
             errormessage="Choose your avatar"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
@@ -227,7 +226,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             name="country"
             ref={this.country}
             options={['Belarus', 'Ukraine', 'United States', 'Poland']}
-            errorstate={this.state.countryError}
+            errorstate={+this.state.countryError}
             errormessage="Choose your country"
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.changeHandler(e)}
           />
@@ -238,7 +237,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             name="agree"
             ref={this.agree}
             label="I consent to my personal data"
-            errorstate={this.state.agreeError}
+            errorstate={+this.state.agreeError}
             errormessage="Agree to consent personal data"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
