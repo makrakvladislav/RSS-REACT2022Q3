@@ -3,7 +3,7 @@ import IInputProps from 'interface/IInputProps';
 
 type Ref = HTMLInputElement | null;
 
-const Input = React.forwardRef<Ref, IInputProps>(({ ...props }, ref) => {
+const Input = React.forwardRef<Ref, IInputProps>((props, ref) => {
   const labelState = props.label?.length ? true : false;
   let label;
   let input;

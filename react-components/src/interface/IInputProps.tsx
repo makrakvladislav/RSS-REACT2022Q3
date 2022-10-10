@@ -3,7 +3,7 @@ export default interface IInputProps {
   name: string;
   label?: string;
   placeholder?: string;
-  errorstate?: boolean;
+  errorstate: boolean;
   errormessage: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

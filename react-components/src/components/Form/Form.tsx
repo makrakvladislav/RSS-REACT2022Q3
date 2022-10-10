@@ -140,8 +140,6 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
     const subscribe = this.subscribe?.current;
     const agree = this.agree?.current;
 
-    console.log(subscribe!.checked);
-
     if (this.onValidateAll()) {
       if (name && lastName && birthday && email && avatar && country && agree) {
         const avatarURL = URL.createObjectURL(this.avatar!.current!.files![0]);
@@ -175,7 +173,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             name="name"
             ref={this.name}
             placeholder="Name"
-            errorstate={this.state.nameError!}
+            errorstate={this.state.nameError}
             errormessage="Name should contains at least 3 characters"
             onChange={this.changeHandler}
           />
@@ -186,7 +184,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             name="lastName"
             ref={this.lastName}
             placeholder="Last Name"
-            errorstate={this.state.lastNameError!}
+            errorstate={this.state.lastNameError}
             errormessage="last Name should contains at least 3 characters"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
@@ -197,7 +195,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             name="birthday"
             ref={this.birthday}
             placeholder="Birthday date"
-            errorstate={this.state.birthdayError!}
+            errorstate={this.state.birthdayError}
             errormessage="Input correct birthday date"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
@@ -208,7 +206,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             name="email"
             ref={this.email}
             placeholder="Email"
-            errorstate={this.state.emailError!}
+            errorstate={this.state.emailError}
             errormessage="Wrong email"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
@@ -229,7 +227,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             name="country"
             ref={this.country}
             options={['Belarus', 'Ukraine', 'United States', 'Poland']}
-            errorstate={this.state.countryError!}
+            errorstate={this.state.countryError}
             errormessage="Choose your country"
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.changeHandler(e)}
           />
@@ -240,7 +238,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             name="agree"
             ref={this.agree}
             label="I consent to my personal data"
-            errorstate={this.state.agreeError!}
+            errorstate={this.state.agreeError}
             errormessage="Agree to consent personal data"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />

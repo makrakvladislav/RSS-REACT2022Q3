@@ -9,14 +9,14 @@ const Select = React.forwardRef<Ref, ISelectProps>((props, ref) => {
       <select
         ref={ref}
         {...props}
-        defaultValue={'default'}
+        defaultValue="default"
         className={
           !props.errorstate
             ? 'w-full mb-2.5 bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg p-2.5'
             : 'w-full mb-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5'
         }
       >
-        <option value="default" disabled selected>
+        <option value="default" disabled>
           Choose a country
         </option>
         {props.options.map((item: string, key: number) => {
