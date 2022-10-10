@@ -1,10 +1,9 @@
 export default interface IInputProps {
   type: string;
-  name?: string;
+  name: string;
   label?: string;
-  placeholder: string;
-  defaultValue?: string;
+  placeholder?: string;
   errorstate?: boolean;
-  errormessage?: string;
+  errormessage: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
