@@ -1,6 +1,6 @@
 import Input from 'components/UI/Input/Input';
 import Select from 'components/UI/Select/Select';
-import { emailCheck } from 'utils/helpers';
+import { emailValidate, dateValidate } from 'utils/helpers';
 import React, { Component, createRef } from 'react';
 import IFormErrorsState from 'interface/IFormStateErrors';
 import Toggle from 'components/UI/Toggle/Toggle';
@@ -17,6 +17,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
   birthday: React.RefObject<HTMLInputElement> | null;
   avatar: React.RefObject<HTMLInputElement> | null;
   country: React.RefObject<HTMLSelectElement> | null;
+  subscribe: React.RefObject<HTMLInputElement> | null;
   agree: React.RefObject<HTMLInputElement> | null;
 
   constructor(props: ChildProps) {
@@ -27,6 +28,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
     this.birthday = createRef();
     this.avatar = createRef();
     this.country = createRef();
+    this.subscribe = createRef();
     this.agree = createRef();
     this.onSubmitForm.bind(this);
 
@@ -34,25 +36,44 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
       nameError: true,
       lastNameError: true,
       emailError: true,
+      birthdayError: true,
+      avatarError: true,
+      countryError: true,
+      agreeError: true,
       disableSubmit: true,
       formSubmited: false,
     };
   }
 
-  changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  changeHandler = (
+    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const input = e.target as HTMLInputElement;
     const inputName = input.name + 'Error';
+
+    /*
     let emailState = true;
-    emailState = emailCheck(e.target);
+    if (e as React.ChangeEvent<HTMLInputElement>) {
+      emailState = emailValidate(input);
+    }
+    let birthdayState = true;
+    if (e as React.ChangeEvent<HTMLInputElement>) {
+      birthdayState = !dateValidate(input);
+    }
+    */
 
     this.setState((prevState) => {
       return { ...prevState, disableSubmit: false };
     });
+    if (input.name === 'avatar') console.log(input.value);
 
     if (this.state.formSubmited) {
       if (
         ((input.name === 'name' || input.name === 'lastName') && input.value.length < 3) ||
-        (input.name === 'email' && !emailState)
+        (input.name === 'email' && !emailValidate(input)) ||
+        (input.name === 'agree' && !!input.checked) ||
+        (input.name === 'birthday' && !dateValidate(input)) ||
+        (input.name === 'avatar' && input.value.length < 0)
       ) {
         this.setState((prevState) => {
           return { ...prevState, [inputName]: false };
@@ -68,9 +89,11 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
     }
   };
 
-  onValidate = (fieldName: React.RefObject<HTMLInputElement>, state: boolean): boolean => {
+  onValidate = (
+    fieldName: React.RefObject<HTMLInputElement> | React.RefObject<HTMLSelectElement>,
+    state: boolean
+  ): boolean => {
     const inputName = fieldName.current!.name + 'Error';
-
     if (state) {
       this.setState((prevState) => {
         return { ...prevState, [inputName]: false };
@@ -96,7 +119,11 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
     let validate = true;
     validate = this.onValidate(this.name!, name!.value.length < 3) && validate;
     validate = this.onValidate(this.lastName!, lastName!.value.length < 3) && validate;
-    validate = this.onValidate(this.email!, !emailCheck(email)) && validate;
+    validate = this.onValidate(this.email!, !emailValidate(email)) && validate;
+    validate = this.onValidate(this.birthday!, !dateValidate(birthday)) && validate;
+    validate = this.onValidate(this.avatar!, avatar!.value.length === 0) && validate;
+    validate = this.onValidate(this.agree!, !agree!.checked) && validate;
+    validate = this.onValidate(this.country!, country!.value === 'default') && validate;
 
     return validate;
   };
@@ -110,16 +137,23 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
     const email = this.email?.current;
     const avatar = this.avatar?.current;
     const country = this.country?.current;
+    const subscribe = this.subscribe?.current;
     const agree = this.agree?.current;
 
+    console.log(subscribe!.checked);
+
     if (this.onValidateAll()) {
-      if (name && lastName && birthday && email && avatar && agree) {
+      if (name && lastName && birthday && email && avatar && country && agree) {
+        const avatarURL = URL.createObjectURL(this.avatar!.current!.files![0]);
+        const subscribeStatus = subscribe!.checked ? true : false;
         const item = {
           name: name.value,
           lastName: lastName.value,
           birthday: birthday.value,
           email: email.value,
-          avatar: avatar.value,
+          avatar: avatarURL,
+          country: country.value,
+          subscribe: subscribeStatus,
           agree: agree.value,
         };
         this.props.handleClick([item]);
@@ -142,7 +176,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             ref={this.name}
             placeholder="Name"
             errorstate={this.state.nameError!}
-            errormessage="Name at least 3 characters"
+            errormessage="Name should contains at least 3 characters"
             onChange={this.changeHandler}
           />
         </div>
@@ -153,17 +187,19 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             ref={this.lastName}
             placeholder="Last Name"
             errorstate={this.state.lastNameError!}
-            errormessage="Last Name at least 3 characters"
+            errormessage="last Name should contains at least 3 characters"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
         </div>
         <div className="mb-3">
           <Input
             type="date"
+            name="birthday"
             ref={this.birthday}
             placeholder="Birthday date"
-            errorstate={this.state.lastNameError!}
-            errormessage="error date"
+            errorstate={this.state.birthdayError!}
+            errormessage="Input correct birthday date"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
         </div>
         <div className="mb-3">
@@ -173,47 +209,57 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
             ref={this.email}
             placeholder="Email"
             errorstate={this.state.emailError!}
-            errormessage="error email"
+            errormessage="Wrong email"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
         </div>
         <div className="mb-3">
           <Input
             type="file"
+            name="avatar"
             ref={this.avatar}
             placeholder="Avatar"
-            errorstate={this.state.lastNameError!}
-            errormessage="error file"
+            errorstate={this.state.avatarError}
+            errormessage="Choose your avatar"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
         </div>
         <div className="mb-3">
-          <Select ref={this.country} options={['Belarus', 'Ukraine', 'United States', 'Poland']} />
+          <Select
+            name="country"
+            ref={this.country}
+            options={['Belarus', 'Ukraine', 'United States', 'Poland']}
+            errorstate={this.state.countryError!}
+            errormessage="Choose your country"
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.changeHandler(e)}
+          />
         </div>
         <div className="mb-3">
           <Input
             type="checkbox"
+            name="agree"
             ref={this.agree}
-            placeholder=""
             label="I consent to my personal data"
-            errorstate={this.state.lastNameError!}
-            errormessage="error checkbox"
+            errorstate={this.state.agreeError!}
+            errormessage="Agree to consent personal data"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
         </div>
         <div className="mb-3">
-          <Toggle />
+          <Toggle type="checkbox" name="subscribe" ref={this.subscribe} />
         </div>
         {this.state.disableSubmit ? (
           <button
             type="submit"
             disabled
-            className="bg-blue-400 cursor-not-allowed text-white right-2.5 bottom-2.5  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1"
+            className="bg-blue-400 cursor-not-allowed w-full mt-4 text-white right-2.5 bottom-2.5 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-4 py-1"
           >
             Create Card
           </button>
         ) : (
           <button
             type="submit"
-            className="text-white right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1"
+            className="w-full mt-4 text-white right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-4 py-1"
           >
             Create Card
           </button>
