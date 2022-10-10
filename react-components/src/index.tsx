@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
+// nice job
 root.render(
   <HashRouter>
     <App />
