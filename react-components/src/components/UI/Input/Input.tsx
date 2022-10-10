@@ -19,7 +19,7 @@ const Input = React.forwardRef<Ref, IInputProps>(({ ...props }, ref) => {
         id="checkbox"
         ref={ref}
         {...props}
-        className="w-4 h-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  p-2.5"
+        className="w-4 h-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
       />
     );
   } else if (!props.errorstate) {
@@ -27,7 +27,7 @@ const Input = React.forwardRef<Ref, IInputProps>(({ ...props }, ref) => {
       <input
         ref={ref}
         {...props}
-        className="w-full bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg  p-2.5"
+        className="w-full bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg p-2.5"
       />
     );
   } else {
@@ -35,7 +35,7 @@ const Input = React.forwardRef<Ref, IInputProps>(({ ...props }, ref) => {
       <input
         ref={ref}
         {...props}
-        className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  p-2.5"
+        className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
       />
     );
   }
@@ -45,11 +45,16 @@ const Input = React.forwardRef<Ref, IInputProps>(({ ...props }, ref) => {
         {input}
         {label}
       </div>
-      {!props.errorstate ? (
-        <div className="flex mt-1 text-sm text-red-600 opacity-1">{props.errormessage}</div>
-      ) : (
-        <div className="flex mt-1 text-sm text-red-600 opacity-0">{props.errormessage}</div>
-      )}
+
+      <div
+        className={
+          !props.errorstate
+            ? 'flex mt-1 text-sm text-red-600 opacity-1 transition-opacity duration-300'
+            : 'flex mt-1 text-sm text-red-600 opacity-0 transition-opacity duration-300'
+        }
+      >
+        {props.errormessage}
+      </div>
     </>
   );
 });
