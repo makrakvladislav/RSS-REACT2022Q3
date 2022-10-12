@@ -4,10 +4,11 @@ import { emailValidate, dateValidate } from 'utils/helpers';
 import React, { Component, createRef } from 'react';
 import IFormErrorsState from 'interface/IFormStateErrors';
 import Toggle from 'components/UI/Toggle/Toggle';
+import Checkbox from 'components/UI/Checkbox/Checkbox';
 
 interface ChildProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  handleClick: (items: any) => void;
+  handleClick?: (items: any) => void;
 }
 
 export class Form extends Component<ChildProps, IFormErrorsState> {
@@ -142,7 +143,8 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
     if (this.onValidateAll()) {
       if (name && lastName && birthday && email && avatar && country && agree) {
         const avatarURL = URL.createObjectURL(this.avatar!.current!.files![0]);
-        const subscribeStatus = subscribe!.checked ? true : false;
+        const isSubscribe = subscribe!.checked ? true : false;
+        const isAgree = agree!.checked ? true : false;
         const item = {
           name: name.value,
           lastName: lastName.value,
@@ -150,94 +152,105 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
           email: email.value,
           avatar: avatarURL,
           country: country.value,
-          subscribe: subscribeStatus,
-          agree: agree.value,
+          subscribe: isSubscribe,
+          agree: isAgree,
         };
-        this.props.handleClick([item]);
+        this.props.handleClick!([item]);
       }
       (e.target as HTMLFormElement).reset();
       this.setState({ formSubmited: false, disableSubmit: true });
     } else {
-      console.log('form error not submit');
+      console.log('form not submited');
       this.setState({ disableSubmit: true, formSubmited: true });
     }
   };
 
   render() {
     return (
-      <form className="flex-1 mt-8 mb-8 max-w-sm mx-auto" onSubmit={this.onSubmitForm}>
+      <form
+        data-testid="form"
+        className="flex-1 mt-8 mb-8 max-w-sm mx-auto"
+        onSubmit={this.onSubmitForm}
+      >
         <div className="mb-3">
           <Input
+            data-testid="name"
             type="text"
             name="name"
             ref={this.name}
             placeholder="Name"
-            errorstate={+this.state.nameError}
+            isError={+this.state.nameError}
             errormessage="Name should contains at least 3 characters"
             onChange={this.changeHandler}
           />
         </div>
         <div className="mb-3">
           <Input
+            data-testid="last-name"
             type="text"
             name="lastName"
             ref={this.lastName}
             placeholder="Last Name"
-            errorstate={+this.state.lastNameError}
+            isError={+this.state.lastNameError}
             errormessage="last Name should contains at least 3 characters"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
         </div>
         <div className="mb-3">
           <Input
+            data-testid="birthday"
             type="date"
             name="birthday"
             ref={this.birthday}
             placeholder="Birthday date"
-            errorstate={+this.state.birthdayError}
+            isError={+this.state.birthdayError}
             errormessage="Input correct birthday date"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
         </div>
         <div className="mb-3">
           <Input
+            data-testid="email"
             type="text"
             name="email"
             ref={this.email}
             placeholder="Email"
-            errorstate={+this.state.emailError}
+            isError={+this.state.emailError}
             errormessage="Wrong email"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
         </div>
         <div className="mb-3">
           <Input
+            data-testid="avatar"
             type="file"
             name="avatar"
             ref={this.avatar}
             placeholder="Avatar"
-            errorstate={+this.state.avatarError}
+            isError={+this.state.avatarError}
             errormessage="Choose your avatar"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
         </div>
         <div className="mb-3">
           <Select
+            data-testid="country"
             name="country"
             ref={this.country}
             options={['Belarus', 'Ukraine', 'United States', 'Poland']}
-            errorstate={+this.state.countryError}
+            isError={+this.state.countryError}
             errormessage="Choose your country"
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.changeHandler(e)}
           />
         </div>
         <div className="mb-3">
-          <Input
+          <Checkbox
+            data-testid="agree"
             type="checkbox"
             name="agree"
             ref={this.agree}
             label="I consent to my personal data"
-            errorstate={+this.state.agreeError}
+            isError={+this.state.agreeError}
             errormessage="Agree to consent personal data"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.changeHandler(e)}
           />
@@ -245,22 +258,18 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
         <div className="mb-3">
           <Toggle type="checkbox" name="subscribe" ref={this.subscribe} />
         </div>
-        {this.state.disableSubmit ? (
-          <button
-            type="submit"
-            disabled
-            className="bg-blue-400 cursor-not-allowed w-full mt-4 text-white right-2.5 bottom-2.5 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-4 py-1"
-          >
-            Create Card
-          </button>
-        ) : (
-          <button
-            type="submit"
-            className="w-full mt-4 text-white right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-4 py-1"
-          >
-            Create Card
-          </button>
-        )}
+
+        <button
+          type="submit"
+          disabled={this.state.disableSubmit && true}
+          className={
+            this.state.disableSubmit
+              ? 'bg-blue-400 cursor-not-allowed w-full mt-4 text-white right-2.5 bottom-2.5 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-4 py-1'
+              : 'w-full mt-4 text-white right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-4 py-1'
+          }
+        >
+          Create Card
+        </button>
       </form>
     );
   }
