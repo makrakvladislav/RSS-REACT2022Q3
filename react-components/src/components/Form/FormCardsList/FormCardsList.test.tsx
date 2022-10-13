@@ -28,6 +28,7 @@ const mockedData = [
 describe('Form Cards list', () => {
   it('Render form cards list', () => {
     render(<FormCardsList items={mockedData} />);
+    expect(screen.getByTestId('form-cardsList')).toBeInTheDocument();
     const name = screen.getByText(/Jhon/i);
     const lastName = screen.getByText(/Doe/i);
     expect(name).toBeInTheDocument();

@@ -92,8 +92,14 @@ describe('Form test', () => {
 
   it('Check input avatar', () => {
     render(<Form />);
-    const inputAvatar = screen.getByTestId('avatar');
+    const inputAvatar = screen.getByTestId('avatar') as HTMLInputElement;
     expect(inputAvatar).toBeInTheDocument();
+    const file = new File(['logo'], 'logo.png', { type: 'image/png' });
+    userEvent.upload(inputAvatar, file);
+
+    expect(inputAvatar!.files![0]).toStrictEqual(file);
+    expect(inputAvatar!.files!.item(0)).toStrictEqual(file);
+    expect(inputAvatar.files).toHaveLength(1);
   });
 
   it('Check input avatar error', () => {
@@ -140,37 +146,43 @@ describe('Form test', () => {
   });
 
   it('Check submit form', async () => {
-    const mockedFn = jest.fn();
+    let showCard = false;
+    const mockedFn = jest.fn(() => {
+      showCard = true;
+      console.log('form submited');
+    });
     render(<Form handleClick={mockedFn} />);
 
     const inputName = screen.getByTestId('name');
     const inputLastName = screen.getByTestId('last-name');
     const inputBirthday = screen.getByTestId('birthday');
     const inputEmail = screen.getByTestId('email');
-    const fileUploader: HTMLInputElement = screen.getByTestId(/avatar/i);
+    const fileUploader: HTMLInputElement = screen.getByTestId('avatar');
+    const select = screen.getByTestId('country');
 
     userEvent.type(inputName, mockedData.name);
     userEvent.type(inputLastName, mockedData.lastName);
     fireEvent.change(inputBirthday, { target: { value: mockedData.birthday } });
     userEvent.type(inputEmail, mockedData.email);
-
-    const select = screen.getByTestId(/country/i);
     expect(await screen.getByRole('option', { name: 'Belarus' })).toBeInTheDocument();
     userEvent.selectOptions(select, 'Belarus');
     expect(select).toHaveValue('Belarus');
 
-    const file = new File(['logo'], 'logo.png', { type: 'image/png' });
     waitFor(() => {
-      const checkbox = screen.getByTestId(/agree/i) as HTMLInputElement;
+      const checkbox = screen.getByTestId('agree') as HTMLInputElement;
       fireEvent.click(checkbox);
       expect(checkbox.checked).toEqual(true);
     });
+
+    const file = new File(['logo'], 'logo.png', { type: 'image/png' });
     userEvent.upload(fileUploader, file);
 
     expect(fileUploader!.files![0]).toStrictEqual(file);
     expect(fileUploader!.files!.item(0)).toStrictEqual(file);
     expect(fileUploader.files).toHaveLength(1);
-    fireEvent.click(screen.getByText(/Create Card/i));
-    //expect(mockedFn).toHaveBeenCalledTimes(1);
+    window.URL.createObjectURL = jest.fn();
+    fireEvent.submit(screen.getByTestId('form'));
+    expect(mockedFn).toHaveBeenCalledTimes(1);
+    expect(showCard).toBeTruthy();
   });
 });
