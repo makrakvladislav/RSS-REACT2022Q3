@@ -20,7 +20,7 @@ const Input = React.forwardRef<Ref, ICheckboxProps>((props, ref) => {
 
       <div
         className={
-          !props.isError
+          !props.iserror
             ? 'flex mt-1 text-sm text-red-600 opacity-1 transition-opacity duration-300'
             : 'flex mt-1 text-sm text-red-600 opacity-0 transition-opacity duration-300'
         }
