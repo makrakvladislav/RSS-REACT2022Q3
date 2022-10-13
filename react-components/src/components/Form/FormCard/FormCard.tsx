@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import IFormCardState from 'interface/IFormCardState';
 import IForm from 'interface/IFormProps';
+import ImagePlaceholder from 'components/UI/ImagePlaceholder/ImagePlaceholder';
 
 export class FormCard extends Component<IForm, IFormCardState> {
   constructor(props: IForm) {
@@ -14,11 +15,16 @@ export class FormCard extends Component<IForm, IFormCardState> {
     return (
       <>
         <div className="card flex flex-col bg-white rounded-lg border border-gray-200 shadow-md">
-          <img
-            src={`${this.state.item.avatar}`}
-            className="w-full h-full max-h-60 rounded-t-lg object-cover"
-            alt="Post img"
-          />
+          {this.state.item.avatar ? (
+            <img
+              src={`${this.state.item.avatar}`}
+              className="w-full h-full max-h-60 rounded-t-lg object-cover"
+              alt="Post img"
+            />
+          ) : (
+            <ImagePlaceholder />
+          )}
+
           <div className="flex flex-col p-5">
             <div className="mb-2">
               <h3 className="text-2xl font-bold tracking-tight text-gray-900">
