@@ -1,33 +1,60 @@
+import Input from 'components/UI/Input/Input';
 import ISearchState from 'interface/ISearchState';
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
+import './Search.css';
+interface ChildProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handleSearch?: (items: any) => void;
+}
 
-export class Search extends Component<Record<string, never>, ISearchState> {
-  constructor(props: Record<string, never>) {
+export class Search extends Component<ChildProps, ISearchState> {
+  search: React.RefObject<HTMLInputElement> | null;
+
+  constructor(props: ChildProps) {
     super(props);
+    this.search = createRef();
+    this.handleChange = this.handleChange.bind(this);
+    this.onSubmitForm.bind(this);
     this.state = {
       value: '',
+      isDisabled: false,
     };
-    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     this.setState({ value: e.target.value });
+    if (e.target.value.length === 0) {
+      this.setState({ isDisabled: true });
+    } else {
+      this.setState({ isDisabled: false });
+    }
   }
 
   componentDidMount() {
     this.setState({ value: localStorage.getItem('searchQuery') });
+    const lSValue = localStorage!.getItem('searchQuery');
+    if (lSValue) {
+      this.setState({ isDisabled: true });
+    } else {
+      this.setState({ isDisabled: false });
+    }
   }
 
   componentWillUnmount() {
     if (this.state.value !== null) {
-      localStorage.setItem('searchQuery', `${this.state.value}`);
+      localStorage!.setItem('searchQuery', `${this.state.value}`);
     }
   }
+
+  onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    this.props.handleSearch!(this.search!.current!.value);
+  };
 
   render() {
     return (
       <>
-        <form className="flex-1 mt-8 mb-8 max-w-sm mx-auto">
+        <form onSubmit={this.onSubmitForm} className="flex-1 mt-8 mb-8 max-w-sm mx-auto">
           <div className="relative">
             <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
               <svg
@@ -46,18 +73,25 @@ export class Search extends Component<Record<string, never>, ISearchState> {
                 ></path>
               </svg>
             </div>
-            <input
+            <Input
+              data-testid="name"
               type="search"
-              id="default-search"
-              className="block p-3 pl-10 pr-20 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+              name="search"
+              ref={this.search}
               value={!this.state.value ? '' : this.state.value}
+              iserror={1}
               placeholder={!this.state.value ? 'Search...' : this.state.value}
               onChange={this.handleChange}
-              required
             />
+
             <button
               type="submit"
-              className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1"
+              disabled={this.state.isDisabled && true}
+              className={
+                this.state.isDisabled
+                  ? 'bg-blue-400 cursor-not-allowed text-white absolute right-2.5 bottom-2.5 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1'
+                  : 'text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1'
+              }
             >
               Search
             </button>
