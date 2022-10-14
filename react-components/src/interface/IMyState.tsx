@@ -1,10 +1,20 @@
 export default interface IMyState {
   items: {
-    albumId: number;
+    adult: boolean;
+    backdrop_path: string;
+    genre_ids: Array<number>;
     id: number;
-    thumbnailUrl: string;
+    original_language: string;
+    original_title: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    release_date: string;
     title: string;
-    url: string;
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
   }[];
   isFetching?: boolean;
+  isError?: boolean;
 }
