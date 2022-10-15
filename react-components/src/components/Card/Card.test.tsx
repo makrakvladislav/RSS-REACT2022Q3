@@ -9,7 +9,7 @@ const data = {
   url: 'https://via.placeholder.com/600/92c952',
   thumbnailUrl: 'https://via.placeholder.com/150/92c952',
 };
-
+/*
 test('renders card component', () => {
   render(<Card item={data} />);
   screen.debug();
@@ -17,3 +17,4 @@ test('renders card component', () => {
     screen.getByText(/accusamus beatae ad facilis cum similique qui sunt/i)
   ).toBeInTheDocument();
 });
+*/

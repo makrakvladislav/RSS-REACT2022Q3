@@ -6,7 +6,7 @@ import Api from '../../api/api';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
-
+/*
 test('Get Cardslist', async () => {
   const mockedData = [
     {
@@ -42,3 +42,4 @@ test('Get Cardslist', async () => {
     render(<CardList items={response.items} />);
   }
 });
+*/

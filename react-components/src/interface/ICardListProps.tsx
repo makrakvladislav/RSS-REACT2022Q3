@@ -1,5 +1,5 @@
-export default interface ICardState {
-  item: {
+export interface ICardListProps {
+  items: {
     adult: boolean;
     backdrop_path: string;
     genre_ids: Array<number>;
@@ -14,5 +14,8 @@ export default interface ICardState {
     video: boolean;
     vote_average: number;
     vote_count: number;
-  };
+  }[];
+  movieId?: number;
+  modalIsVisible?: boolean;
+  setVisible?: (isVisible: boolean) => void;
 }
