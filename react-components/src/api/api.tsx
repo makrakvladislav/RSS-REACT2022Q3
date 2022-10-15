@@ -1,5 +1,6 @@
 import axios from 'axios';
 import IResponse from 'interface/IResponse';
+import IResponseByMovieId from 'interface/IResponseByMovieId';
 export default class Data {
   static async getMovies(page: number): Promise<IResponse | void> {
     return await axios
@@ -24,6 +25,21 @@ export default class Data {
           api_key: '1939abe3d00976407f86acd63c341f94',
           page: page,
           query: query,
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        const totalCount: string = response.data.total_results;
+        return { results: data, totalCount: totalCount };
+      })
+      .catch((error) => console.log(error));
+  }
+
+  static async getByMovieId(id: number): Promise<IResponseByMovieId | void> {
+    return await axios
+      .get(`https://api.themoviedb.org/3/movie/${id}`, {
+        params: {
+          api_key: '1939abe3d00976407f86acd63c341f94',
         },
       })
       .then((response) => {
