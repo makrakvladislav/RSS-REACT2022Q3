@@ -1,3 +1,5 @@
+import { movieById } from './IMovieById';
+
 export default interface IMyState {
   items: {
     adult: boolean;
@@ -17,4 +19,7 @@ export default interface IMyState {
   }[];
   isFetching?: boolean;
   isError?: boolean;
+  modalData?: movieById[];
+  modal?: boolean;
+  modalIsVisible?: boolean;
 }
