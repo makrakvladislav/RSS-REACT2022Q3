@@ -2,7 +2,10 @@ import React from 'react';
 
 function ImagePlaceholder() {
   return (
-    <div role="status" className="space-y-8 md:space-y-0 md:space-x-8 md:flex md:items-center">
+    <div
+      role="status"
+      className="w-full space-y-8 md:space-y-0 md:space-x-8 md:flex md:items-center"
+    >
       <div className="flex justify-center items-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
         <svg
           className="w-12 h-12 text-gray-200"
