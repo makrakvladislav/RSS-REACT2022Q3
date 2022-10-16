@@ -5,7 +5,7 @@ function GenresList(props: IGenresListProps) {
   return (
     <>
       <div className="mb-5">
-        <p className="text-xl font-bold mb-2">Genres</p>
+        {/* <p className="text-md font-bold mb-2">Genres</p> */}
         <div className="inline-flex" role="group">
           {props.items.map((item, index) => (
             <button
