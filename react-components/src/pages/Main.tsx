@@ -13,7 +13,7 @@ class Main extends Component<Record<string, never>, IMyState> {
     isFetching: false,
     isError: false,
     modalData: [],
-    modal: false,
+
     modalIsVisible: false,
   };
   constructor(props: Record<string, never>) {
@@ -39,19 +39,15 @@ class Main extends Component<Record<string, never>, IMyState> {
   modalHandler = async (isVisible: boolean, movieId?: number) => {
     if (isVisible) {
       const response = await Data.getByMovieId(movieId!);
-
+      console.log(response);
       if (response !== undefined)
         this.setState({
           modalData: [response.results],
-          modal: isVisible,
           modalIsVisible: isVisible,
           isFetching: true,
         });
-
-      //this.setState({ modalData: response!.results, modal: isVisible });
-      console.log(response!.results, isVisible);
     } else {
-      this.setState({ modal: isVisible });
+      this.setState({ modalIsVisible: isVisible });
     }
   };
 
@@ -63,7 +59,7 @@ class Main extends Component<Record<string, never>, IMyState> {
         {this.state.modalIsVisible && (
           <Modal
             modalData={[...this.state.modalData]}
-            isVisible={this.state.modal}
+            isVisible={this.state.modalIsVisible}
             setVisible={this.modalHandler}
           />
         )}

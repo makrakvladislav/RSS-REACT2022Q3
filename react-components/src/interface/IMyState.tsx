@@ -20,6 +20,6 @@ export default interface IMyState {
   isFetching?: boolean;
   isError?: boolean;
   modalData?: movieById[];
-  modal?: boolean;
+
   modalIsVisible?: boolean;
 }
