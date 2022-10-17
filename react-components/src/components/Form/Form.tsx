@@ -8,7 +8,7 @@ import Checkbox from 'components/UI/Checkbox/Checkbox';
 
 interface ChildProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  handleClick?: (items: any) => void;
+  handleClick?: (items: any) => void; // any - type missmatch, watch below
 }
 
 export class Form extends Component<ChildProps, IFormErrorsState> {
@@ -145,17 +145,18 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
         } else {
           avatarURL = false;
         }
-        const isSubscribe = subscribe!.checked ? true : false;
-        const isAgree = agree!.checked ? true : false;
+        const isSubscribe = subscribe!.checked;
+        const isAgree = agree!.checked;
         const item = {
+          // : IFormCard
           name: name.value,
           lastName: lastName.value,
-          birthday: birthday.value,
+          birthday: Number(birthday.value),
           email: email.value,
-          avatar: avatarURL,
+          avatar: avatarURL, // string | boolean ??
           country: country.value,
           subscribe: isSubscribe,
-          agree: isAgree,
+          agree: isAgree, // satring or boolean ??
         };
         this.props.handleClick!([item]);
       }
@@ -262,7 +263,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
 
         <button
           type="submit"
-          disabled={this.state.disableSubmit && true}
+          disabled={this.state.disableSubmit && true} // && true ?? wtf
           className={
             this.state.disableSubmit
               ? 'bg-blue-400 cursor-not-allowed w-full mt-4 text-white right-2.5 bottom-2.5 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-4 py-1'

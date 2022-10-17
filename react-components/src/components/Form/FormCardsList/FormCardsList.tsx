@@ -3,6 +3,7 @@ import IFromCardListProps from 'interface/IFormCardsListProps';
 import FormCard from '../FormCard/FormCard';
 import IFormCard from 'interface/IFormCard';
 
+// there are no State in component - no reason to use class
 export class FormCardsList extends Component<IFromCardListProps> {
   render() {
     return (
