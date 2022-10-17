@@ -13,7 +13,7 @@ export class Card extends Component<IMyProps, ICardState> {
   render() {
     return (
       <>
-        <div className="card bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <div className="card flex flex-col bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
           {this.state.item.poster_path !== null ? (
             <img
               src={`https://image.tmdb.org/t/p/w500/${this.state.item.poster_path}`}
@@ -24,7 +24,7 @@ export class Card extends Component<IMyProps, ICardState> {
             <ImagePlaceholder />
           )}
 
-          <div className="p-5">
+          <div className="flex flex-col h-full justify-between p-5">
             <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {this.state.item.title}
             </h3>
