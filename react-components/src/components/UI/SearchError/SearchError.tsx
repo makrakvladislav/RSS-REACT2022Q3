@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SearchError() {
+export default React.memo(function SearchError() {
   return (
     <div>
       <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
@@ -11,6 +11,4 @@ function SearchError() {
       </p>
     </div>
   );
-}
-
-export default SearchError;
+});

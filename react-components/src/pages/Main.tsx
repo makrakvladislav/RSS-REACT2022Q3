@@ -13,7 +13,6 @@ class Main extends Component<Record<string, never>, IMyState> {
     isFetching: false,
     isError: false,
     modalData: [],
-
     modalIsVisible: false,
   };
   constructor(props: Record<string, never>) {
@@ -39,7 +38,6 @@ class Main extends Component<Record<string, never>, IMyState> {
   modalHandler = async (isVisible: boolean, movieId?: number) => {
     if (isVisible) {
       const response = await Data.getByMovieId(movieId!);
-      console.log(response);
       if (response !== undefined)
         this.setState({
           modalData: [response.results],

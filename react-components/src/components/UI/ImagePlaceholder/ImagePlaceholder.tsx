@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ImagePlaceholder() {
+export default React.memo(function ImagePlaceholder() {
   return (
     <div
       role="status"
@@ -19,6 +19,4 @@ function ImagePlaceholder() {
       </div>
     </div>
   );
-}
-
-export default ImagePlaceholder;
+});

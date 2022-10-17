@@ -34,7 +34,7 @@ export class Search extends Component<ChildProps, ISearchState> {
     this.setState({ value: localStorage.getItem('searchQuery') });
     const lSValue = localStorage!.getItem('searchQuery');
     if (lSValue) {
-      this.setState({ isDisabled: true });
+      this.setState({ isDisabled: false });
     } else {
       this.setState({ isDisabled: false });
     }
