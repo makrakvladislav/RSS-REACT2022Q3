@@ -6,22 +6,22 @@ const mockedData = [
   {
     name: 'Jhon',
     lastName: 'Doe',
-    birthday: 20221009,
+    birthday: '20221009',
     email: 'test@yandex.ru',
     avatar: 'https://via.placeholder.com/600/92c952',
     country: 'Belarus',
     subscribe: false,
-    agree: 'true',
+    agree: true,
   },
   {
     name: 'Agent',
     lastName: 'Smith',
-    birthday: 19991009,
+    birthday: '19991009',
     email: 'test2@yandex.ru',
     avatar: 'https://via.placeholder.com/600/92c952',
     country: 'Ukraine',
     subscribe: true,
-    agree: 'true',
+    agree: true,
   },
 ];
 

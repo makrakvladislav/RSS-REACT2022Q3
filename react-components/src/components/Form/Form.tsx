@@ -5,10 +5,10 @@ import React, { Component, createRef } from 'react';
 import IFormErrorsState from 'interface/IFormStateErrors';
 import Toggle from 'components/UI/Toggle/Toggle';
 import Checkbox from 'components/UI/Checkbox/Checkbox';
+import IFormCard from 'interface/IFormCard';
 
 interface ChildProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  handleClick?: (items: any) => void;
+  handleClick?: (items: IFormCard) => void;
 }
 
 export class Form extends Component<ChildProps, IFormErrorsState> {
@@ -143,11 +143,11 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
         if (this.avatar!.current!.files![0]) {
           avatarURL = URL.createObjectURL(this.avatar!.current!.files![0]);
         } else {
-          avatarURL = false;
+          avatarURL = '';
         }
-        const isSubscribe = subscribe!.checked ? true : false;
-        const isAgree = agree!.checked ? true : false;
-        const item = {
+        const isSubscribe = subscribe!.checked;
+        const isAgree = agree!.checked;
+        const item: IFormCard = {
           name: name.value,
           lastName: lastName.value,
           birthday: birthday.value,
@@ -157,7 +157,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
           subscribe: isSubscribe,
           agree: isAgree,
         };
-        this.props.handleClick!([item]);
+        this.props.handleClick!(item);
       }
       (e.target as HTMLFormElement).reset();
       this.setState({ formSubmited: false, disableSubmit: true });
@@ -262,7 +262,7 @@ export class Form extends Component<ChildProps, IFormErrorsState> {
 
         <button
           type="submit"
-          disabled={this.state.disableSubmit && true}
+          disabled={this.state.disableSubmit}
           className={
             this.state.disableSubmit
               ? 'bg-blue-400 cursor-not-allowed w-full mt-4 text-white right-2.5 bottom-2.5 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-4 py-1'

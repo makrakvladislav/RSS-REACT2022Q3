@@ -1,10 +1,10 @@
 export default interface IFormCard {
   name: string;
   lastName: string;
-  birthday: number;
+  birthday: string;
   email: string;
   avatar: string;
   country: string;
   subscribe: boolean;
-  agree: string;
+  agree: boolean;
 }
