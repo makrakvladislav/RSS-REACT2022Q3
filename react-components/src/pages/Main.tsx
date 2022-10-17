@@ -45,7 +45,7 @@ class Main extends Component<Record<string, never>, IMyState> {
   };
 
   render() {
-    if (this.state.items.length == 0) {
+    if (this.state.items.length == 0 && this.state.isFetching) {
       return (
         <>
           <h1>Main page</h1>
