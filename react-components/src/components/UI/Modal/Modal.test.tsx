@@ -1,47 +1,16 @@
+/*
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Search from './Search';
 import axios, { AxiosResponse } from 'axios';
 import ICard from 'interface/ICard';
-import Api from '../../api/api';
+import Api from '../../../api/api';
+import Modal from './Modal';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
-class LocalStorageMock {
-  store: { [key: string]: string };
-  length: number;
-  key: string | null;
-  mockedValue: string;
-  constructor(mockedValue?: string) {
-    this.store = {};
-    this.length = 0;
-    this.key = 'searchQuery';
-    this.mockedValue = mockedValue || '';
-  }
 
-  clear() {
-    this.store = {};
-  }
-
-  getItem(key: string) {
-    return this.store[key] || null;
-  }
-
-  setItem(key: string, value: unknown) {
-    if (this.mockedValue) {
-      this.store[key] = this.mockedValue;
-    } else {
-      this.store[key] = String(value);
-    }
-  }
-
-  removeItem(key: string) {
-    delete this.store[key];
-  }
-}
-
-describe('Search test', () => {
-  it('check search query', async () => {
+describe('Modal test', () => {
+  it('Show modal', async () => {
     const mockedData: ICard[] = [
       {
         adult: false,
@@ -72,18 +41,17 @@ describe('Search test', () => {
 
     mockedAxios.get.mockResolvedValueOnce(mockedResponse);
     expect(axios.get).not.toHaveBeenCalled();
-    const response = await Api.getByQuery(1, 'matrix');
+    const response = await Api.getByMovieId(624860);
+    const data = response!.results;
     expect(axios.get).toHaveBeenCalled();
-    if (response !== undefined) expect(response!.results).toEqual(mockedData);
-  });
-  it('check search value from LS', () => {
-    Object.defineProperty(window, 'localStorage', {
-      value: new LocalStorageMock('mocked value'),
-    });
+    if (response !== undefined) {
+      console.log([data]);
+      expect(data).toEqual(mockedData);
 
-    localStorage.setItem('searchQuery', 'example value');
-    const { getByRole } = render(<Search />);
-    expect(screen.getByRole('searchbox')).toHaveValue('mocked value');
-    screen.debug();
+      const modal = render(<Modal modalData={[data]} isVisible={true} />);
+
+      // expect(modal).toMatchSnapshot();
+    }
   });
 });
+*/
