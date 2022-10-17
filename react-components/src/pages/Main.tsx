@@ -11,7 +11,6 @@ class Main extends Component<Record<string, never>, IMyState> {
   state = {
     items: [],
     isFetching: false,
-    isError: false,
     modalData: [],
     modalIsVisible: false,
   };
@@ -28,11 +27,7 @@ class Main extends Component<Record<string, never>, IMyState> {
   searchHandler = async (query: string) => {
     this.setState({ isFetching: false });
     const response = await Data.getByQuery(1, query);
-    if (response !== undefined && response!.results.results.length > 0) {
-      this.setState({ items: response.results.results, isFetching: true, isError: false });
-    } else {
-      this.setState({ isFetching: true, isError: true });
-    }
+    this.setState({ items: response!.results.results, isFetching: true });
   };
 
   modalHandler = async (isVisible: boolean, movieId?: number) => {
@@ -50,10 +45,20 @@ class Main extends Component<Record<string, never>, IMyState> {
   };
 
   render() {
+    if (this.state.items.length == 0) {
+      return (
+        <>
+          <h1>Main page</h1>
+          <Search handleSearch={this.searchHandler} />
+          <SearchError />
+        </>
+      );
+    }
+
     return (
       <>
         <h1>Main page</h1>
-        <Search handleSearch={this.searchHandler!} />
+        <Search handleSearch={this.searchHandler} />
         {this.state.modalIsVisible && (
           <Modal
             modalData={[...this.state.modalData]}
@@ -61,11 +66,11 @@ class Main extends Component<Record<string, never>, IMyState> {
             setVisible={this.modalHandler}
           />
         )}
-        {!this.state.isFetching && <Loader />}
-        {!this.state.isError && this.state.isFetching && (
+        {!this.state.isFetching ? (
+          <Loader />
+        ) : (
           <CardsList items={this.state.items} setVisible={this.modalHandler} />
         )}
-        {this.state.isError && this.state.isFetching && <SearchError />}
       </>
     );
   }

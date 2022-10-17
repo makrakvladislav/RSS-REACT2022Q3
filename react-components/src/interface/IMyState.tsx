@@ -18,8 +18,6 @@ export default interface IMyState {
     vote_count: number;
   }[];
   isFetching?: boolean;
-  isError?: boolean;
   modalData?: movieById[];
-
   modalIsVisible?: boolean;
 }
