@@ -35,8 +35,6 @@ export class Search extends Component<ChildProps, ISearchState> {
     const lSValue = localStorage!.getItem('searchQuery');
     if (lSValue) {
       this.setState({ isDisabled: false });
-    } else {
-      this.setState({ isDisabled: false });
     }
   }
 
@@ -74,7 +72,7 @@ export class Search extends Component<ChildProps, ISearchState> {
               </svg>
             </div>
             <Input
-              data-testid="name"
+              data-testid="search"
               type="search"
               name="search"
               ref={this.search}

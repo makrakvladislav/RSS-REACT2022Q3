@@ -70,7 +70,7 @@ export default React.memo(function Modal(props: IModalProps) {
                 )}
               </div>
               <div className="description flex w-2/3 flex-col">
-                <Rating data={modalData} />
+                <Rating ratingValue={modalData.vote_average} />
                 <GenresList items={modalData.genres} />
                 <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                   {modalData.overview}

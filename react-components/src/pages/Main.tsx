@@ -37,7 +37,6 @@ class Main extends Component<Record<string, never>, IMyState> {
         this.setState({
           modalData: [response.results],
           modalIsVisible: isVisible,
-          isFetching: true,
         });
     } else {
       this.setState({ modalIsVisible: isVisible });

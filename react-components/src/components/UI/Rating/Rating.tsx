@@ -18,12 +18,12 @@ export default React.memo(function Rating(props: IRatingProps) {
   return (
     <div className="rating flex items-center mb-5">
       <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">
-        {props.data.vote_average.toFixed(2)}
+        {props.ratingValue.toFixed(2)}
       </p>
       <IconStar />
       <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
       <span className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
-        {props.data.vote_count} reviews
+        {props.ratingValue} reviews
       </span>
     </div>
   );

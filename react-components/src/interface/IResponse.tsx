@@ -17,5 +17,5 @@ export default interface IResponse {
       vote_count: number;
     }[];
   };
-  totalCount: string;
+  totalCount: number;
 }

@@ -12,7 +12,7 @@ export default class Data {
       })
       .then((response) => {
         const data = response.data;
-        const totalCount: string = response.data.total_results;
+        const totalCount = response.data.total_results;
         return { results: data, totalCount: totalCount };
       })
       .catch((error) => console.log(error));
@@ -29,7 +29,7 @@ export default class Data {
       })
       .then((response) => {
         const data = response.data;
-        const totalCount: string = response.data.total_results;
+        const totalCount = response.data.total_results;
         return { results: data, totalCount: totalCount };
       })
       .catch((error) => console.log(error));
@@ -44,8 +44,7 @@ export default class Data {
       })
       .then((response) => {
         const data = response.data;
-        const totalCount: string = response.data.total_results;
-        return { results: data, totalCount: totalCount };
+        return { results: data };
       })
       .catch((error) => console.log(error));
   }
