@@ -74,7 +74,7 @@ describe('Search test', () => {
     expect(axios.get).not.toHaveBeenCalled();
     const response = await Api.getByQuery(1, 'matrix');
     expect(axios.get).toHaveBeenCalled();
-    if (response !== undefined) expect(response!.results).toEqual(mockedData);
+    expect(response!.results).toEqual(mockedData);
   });
   it('check search value from LS', () => {
     Object.defineProperty(window, 'localStorage', {
