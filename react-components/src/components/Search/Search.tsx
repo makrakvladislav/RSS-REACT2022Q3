@@ -5,10 +5,28 @@ interface ChildProps {
   handleSearch?: (searchQuery: string) => void;
 }
 
+const IconSearch = () => (
+  <svg
+    aria-hidden="true"
+    className="w-5 h-5 text-gray-500 dark:text-gray-400"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+    ></path>
+  </svg>
+);
+
 function Search(props: ChildProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [disabledSearch, setDisabledSearch] = useState(true);
-  const valueRef = useRef(null) as unknown as React.MutableRefObject<HTMLInputElement>;
+  const valueRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -27,15 +45,13 @@ function Search(props: ChildProps) {
   useEffect(() => {
     const value = valueRef!.current;
     const lSValue = localStorage!.getItem('searchQuery');
-    setSearchQuery(lSValue!);
-
     if (lSValue) {
       setDisabledSearch(false);
+      setSearchQuery(lSValue);
     }
-
     return () => {
-      if (value.value !== null) {
-        localStorage!.setItem('searchQuery', `${value.value}`);
+      if (value!.value !== null) {
+        localStorage!.setItem('searchQuery', `${value!.value}`);
       }
     };
   }, []);
@@ -45,30 +61,16 @@ function Search(props: ChildProps) {
       <form className="flex-1 mt-8 mb-8 max-w-sm mx-auto" onSubmit={onSubmitForm}>
         <div className="relative">
           <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-            <svg
-              aria-hidden="true"
-              className="w-5 h-5 text-gray-500 dark:text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              ></path>
-            </svg>
+            <IconSearch />
           </div>
           <Input
             ref={valueRef}
             data-testid="search"
             type="search"
             name="search"
-            value={!searchQuery ? '' : searchQuery}
+            value={searchQuery}
             iserror={1}
-            placeholder="search..."
+            placeholder="Search..."
             onChange={handleChange}
           />
 

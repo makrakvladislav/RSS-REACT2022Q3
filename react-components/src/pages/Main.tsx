@@ -9,12 +9,11 @@ import Modal from 'components/UI/Modal/Modal';
 
 function Main() {
   const [items, setItems] = useState<IMyState>({ items: [] });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [modalIsvisible, setModalIsvisible] = useState(false);
   const [movieId, setModalMovieId] = useState(0);
 
   const getItems = async () => {
-    setIsLoading(true);
     const response = await Data.getMovies(1);
     if (response !== undefined) {
       setItems({ items: response.results.results });
