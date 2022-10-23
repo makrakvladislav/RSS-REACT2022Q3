@@ -1,8 +1,13 @@
+import Data from 'api/api';
 import { IModalProps } from 'interface/IModalProps';
-import React from 'react';
-import GenresList from '../GenresList/GenresList';
-import ImagePlaceholder from '../ImagePlaceholder/ImagePlaceholder';
-import Rating from '../Rating/Rating';
+import React, { useEffect, useState } from 'react';
+import ModalGenresList from './ModalGenresList/ModalGenresList';
+import ModalRating from './ModalRating/ModalRating';
+import ModalImage from './ModalImage/ModalImage';
+import ModatlTitle from './ModalTitle/ModatlTitle';
+import ModalContent from './ModalContent/ModalContent';
+import { IModalState } from 'interface/IModalState';
+import ModalContext from './ModalContent/ModalContext';
 import './Modal.css';
 
 const IconClose = () => (
@@ -22,64 +27,72 @@ const IconClose = () => (
 );
 
 export default React.memo(function Modal(props: IModalProps) {
-  const modalData = props.modalData[0];
+  const [modalData, setModalData] = useState<IModalState>({ modalData: [] });
+  const [isLoading, setIsLoading] = useState(true);
+
+  const getModalData = async (movieId?: number) => {
+    setTimeout(async () => {
+      const response = await Data.getByMovieId(movieId!);
+      if (response !== undefined) {
+        setModalData({
+          modalData: [response.results],
+        });
+        setIsLoading(false);
+      }
+    }, 2000);
+  };
+
+  useEffect(() => {
+    getModalData(props.movieId);
+  }, []);
+
+  const data = {
+    ...modalData,
+    isLoading,
+  };
   return (
-    <>
-      <div
-        onClick={() => props.setVisible!(false)}
-        className={
-          props.isVisible
-            ? 'fixed inset-0 bg-gray-500 bg-opacity-75'
-            : 'hidden fixed inset-0 bg-gray-500 bg-opacity-75'
-        }
-      ></div>
-      <div
-        className={
-          props.isVisible
-            ? 'modal-wrapper overflow-y-auto overflow-x-hidden'
-            : 'hidden overflow-y-auto overflow-x-hidden'
-        }
-      >
-        <div className="relative p-4 w-full max-w-6xl h-full md:h-auto">
-          <div className="relative bg-white rounded-lg shadow">
-            <div className="flex justify-between items-center p-5 rounded-t border-b">
-              <h3 className="flex gap-4 items-center text-3xl font-medium text-gray-900 ">
-                {modalData.title}
-              </h3>
-
-              <button
-                type="button"
-                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                data-modal-toggle="medium-modal"
-                onClick={() => props.setVisible!(false)}
-              >
-                <IconClose />
-                <span className="sr-only">Close modal</span>
-              </button>
-            </div>
-
-            <div className="flex row gap-5 p-6">
-              <div className="flex w-1/3 image">
-                {modalData.poster_path !== null ? (
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500/${modalData.poster_path}`}
-                    className="h-full w-full"
-                  />
-                ) : (
-                  <ImagePlaceholder />
-                )}
+    <ModalContext.Provider value={data}>
+      <>
+        <div
+          onClick={() => props.setVisible!(false)}
+          className={
+            props.isVisible
+              ? 'fixed inset-0 bg-gray-500 bg-opacity-75'
+              : 'hidden fixed inset-0 bg-gray-500 bg-opacity-75'
+          }
+        ></div>
+        <div
+          className={
+            props.isVisible
+              ? 'modal-wrapper overflow-y-auto overflow-x-hidden'
+              : 'hidden overflow-y-auto overflow-x-hidden'
+          }
+        >
+          <div className="relative p-4 w-full max-w-6xl h-full md:h-auto">
+            <div className="relative bg-white rounded-lg shadow">
+              <div className="flex justify-between items-center p-5 rounded-t border-b">
+                <ModatlTitle />
+                <button
+                  type="button"
+                  className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                  data-modal-toggle="medium-modal"
+                  onClick={() => props.setVisible!(false)}
+                >
+                  <IconClose />
+                </button>
               </div>
-              <div className="description flex w-2/3 flex-col">
-                <Rating ratingValue={modalData.vote_average} />
-                <GenresList items={modalData.genres} />
-                <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                  {modalData.overview}
-                </p>
+              <div className="flex row gap-5 p-6">
+                <ModalImage />
+                <div className="description flex w-2/3 flex-col">
+                  <ModalRating />
+                  <ModalGenresList />
+                  <ModalContent />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
+      </>
+    </ModalContext.Provider>
   );
 });
