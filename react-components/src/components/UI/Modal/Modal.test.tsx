@@ -106,7 +106,7 @@ describe('Modal test', () => {
     expect(axios.get).toHaveBeenCalled();
     if (response !== undefined) {
       expect(data).toEqual([mockedData]);
-      const modal = render(<Modal modalData={[...data]} isVisible={true} />);
+      const modal = render(<Modal movieId={604} isVisible={true} />);
       expect(modal).toMatchSnapshot();
     }
   });
