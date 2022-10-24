@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import ModalContentLoader from './ModalContentLoader';
-import ModalContext from './ModalContext';
+import ModalContext from '../ModalContext';
 
 function ModalContent() {
   const { modalData, isLoading } = useContext(ModalContext);
