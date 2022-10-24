@@ -1,13 +1,13 @@
 import Data from 'api/api';
 import { IModalProps } from 'interface/IModalProps';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import ModalGenresList from './ModalGenresList/ModalGenresList';
 import ModalRating from './ModalRating/ModalRating';
 import ModalImage from './ModalImage/ModalImage';
 import ModatlTitle from './ModalTitle/ModatlTitle';
 import ModalContent from './ModalContent/ModalContent';
 import { IModalState } from 'interface/IModalState';
-import ModalContext from './ModalContent/ModalContext';
+import ModalContext from './ModalContext';
 import './Modal.css';
 
 const IconClose = () => (
@@ -26,7 +26,7 @@ const IconClose = () => (
   </svg>
 );
 
-export default React.memo(function Modal(props: IModalProps) {
+export default memo(function Modal(props: IModalProps) {
   const [modalData, setModalData] = useState<IModalState>({ modalData: [] });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -50,6 +50,7 @@ export default React.memo(function Modal(props: IModalProps) {
     ...modalData,
     isLoading,
   };
+
   return (
     <ModalContext.Provider value={data}>
       <>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { memo } from 'react';
 import './Loader.css';
 
 /*
@@ -7,7 +7,7 @@ import './Loader.css';
   </div>
 */
 
-export default React.memo(function Loader() {
+export default memo(function Loader() {
   return (
     <>
       <p className="py-2.5 px-5 mt-20 text-center text-md font-medium text-gray-900inline-flex items-center">
