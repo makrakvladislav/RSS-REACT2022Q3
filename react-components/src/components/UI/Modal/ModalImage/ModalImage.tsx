@@ -1,6 +1,6 @@
 import ImagePlaceholder from 'components/UI/ImagePlaceholder/ImagePlaceholder';
 import React, { useContext } from 'react';
-import ModalContext from '../ModalContent/ModalContext';
+import ModalContext from '../ModalContext';
 import ModalImageLoader from './ModalImageLoader';
 
 function ModalImage() {

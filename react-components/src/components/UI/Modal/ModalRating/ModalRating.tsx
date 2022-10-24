@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import ModalContext from '../ModalContent/ModalContext';
+import ModalContext from '../ModalContext';
 import ModalRatingLoader from './ModalRatingLoader';
 
 const IconStar = () => (

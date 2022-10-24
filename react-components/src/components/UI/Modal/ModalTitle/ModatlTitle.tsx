@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import ModalContext from '../ModalContent/ModalContext';
+import ModalContext from '../ModalContext';
 import ModalTitleLoader from './ModalTitleLoader';
 
 function ModatlTitle() {
