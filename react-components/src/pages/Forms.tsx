@@ -1,33 +1,24 @@
 import Form from 'components/Form/Form';
 import FormCardsList from 'components/Form/FormCardsList/FormCardsList';
 import IFormCard from 'interface/IFormCard';
-import React, { Component } from 'react';
-import IFormState from 'interface/IFormState';
+import IFormState from '../interface/IFormState';
 
-class About extends Component<Record<string, never>, IFormState> {
-  state: IFormState = {
-    items: [],
+import React, { memo, useState } from 'react';
+
+const Forms = memo(() => {
+  const [cards, setCards] = useState<IFormState>({ items: [] });
+
+  const createCard = (item: IFormCard) => {
+    setCards({ items: cards.items.concat(item) });
   };
 
-  constructor(props: Record<string, never>) {
-    super(props);
-  }
+  return (
+    <>
+      <h1>Form</h1>
+      <Form handleClick={createCard} />
+      <FormCardsList items={cards.items} />
+    </>
+  );
+});
 
-  createCard = (item: IFormCard) => {
-    this.setState((prevState) => ({
-      items: prevState.items.concat(item),
-    }));
-  };
-
-  render() {
-    return (
-      <>
-        <h1>Form</h1>
-        <Form handleClick={this.createCard} />
-        <FormCardsList items={this.state.items} />
-      </>
-    );
-  }
-}
-
-export default About;
+export default Forms;
