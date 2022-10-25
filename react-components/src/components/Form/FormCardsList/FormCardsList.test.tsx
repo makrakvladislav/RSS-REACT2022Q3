@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import FormCardsList from './FormCardsList';
-
+/*
 const mockedData = [
   {
     name: 'Jhon',
@@ -35,3 +35,4 @@ describe('Form Cards list', () => {
     expect(lastName).toBeInTheDocument();
   });
 });
+*/
