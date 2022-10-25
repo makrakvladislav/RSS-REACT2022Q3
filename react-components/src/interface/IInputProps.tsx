@@ -1,9 +1,6 @@
-export default interface IInputProps {
+import { FieldError } from 'react-hook-form';
+
+export default interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type: string;
-  name: string;
-  value?: string;
-  placeholder?: string;
-  iserror?: number;
-  errormessage?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error: { hasError?: FieldError | undefined | boolean; message: string };
 }
