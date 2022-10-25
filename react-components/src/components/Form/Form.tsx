@@ -1,7 +1,7 @@
 import Input from 'components/UI/Input/Input';
 import Select from 'components/UI/Select/Select';
 import { emailValidate, dateValidate, contryValidate } from 'utils/helpers';
-import React, { memo, useEffect } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import Toggle from 'components/UI/Toggle/Toggle';
 import Checkbox from 'components/UI/Checkbox/Checkbox';
 import IFormCard from 'interface/IFormCard';
@@ -20,7 +20,10 @@ interface IForm {
   agree: boolean;
   subscribe: boolean;
 }
-const Form = memo((props: ChildProps) => {
+
+const selectOption = ['Belarus', 'Ukraine', 'United States', 'Poland'];
+
+const Form = memo<ChildProps>(({ handleClick }) => {
   const {
     register,
     handleSubmit,
@@ -29,34 +32,39 @@ const Form = memo((props: ChildProps) => {
     formState: { errors, isValid, isDirty, isSubmitted },
   } = useForm<IForm>({ mode: 'onSubmit' });
 
-  const onSubmit = (data: IFormCard) => {
-    let avatarURL;
-    if (data.avatar![0]) {
-      const blob = new Blob([data.avatar[0]], {
-        type: 'image/jpeg',
-      });
-      avatarURL = URL.createObjectURL(blob);
-    } else {
-      avatarURL = '';
-    }
-    const item: IFormCard = {
-      name: data.name,
-      lastName: data.lastName,
-      birthday: data.birthday,
-      email: data.email,
-      avatar: avatarURL,
-      country: data.country,
-      subscribe: data.subscribe,
-      agree: data.agree,
-    };
-    props.handleClick!(item);
-  };
+  const onSubmit = useCallback(
+    (data: IFormCard) => {
+      let avatarURL;
+      if (data.avatar[0]) {
+        const blob = new Blob([data.avatar[0]], {
+          type: 'image/jpeg',
+        });
+        avatarURL = URL.createObjectURL(blob);
+      } else {
+        avatarURL = '';
+      }
+      const item: IFormCard = {
+        name: data.name,
+        lastName: data.lastName,
+        birthday: data.birthday,
+        email: data.email,
+        avatar: avatarURL,
+        country: data.country,
+        subscribe: data.subscribe,
+        agree: data.agree,
+      };
+      handleClick!(item); // todo !
+    },
+    [handleClick]
+  );
 
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset();
     }
   }, [formState, reset]);
+
+  const disabled = (!isDirty || isSubmitted) && !isValid;
 
   return (
     <>
@@ -110,7 +118,7 @@ const Form = memo((props: ChildProps) => {
 
         <div className="mb-3">
           <Select
-            options={['Belarus', 'Ukraine', 'United States', 'Poland']}
+            options={selectOption}
             error={{ hasError: errors.country, message: 'Choose your country' }}
             {...register('country', { required: true, validate: contryValidate })}
           />
@@ -136,9 +144,9 @@ const Form = memo((props: ChildProps) => {
         </div>
         <button
           type="submit"
-          disabled={(!isDirty || isSubmitted) && !isValid}
+          disabled={disabled}
           className={
-            (!isDirty || isSubmitted) && !isValid
+            disabled
               ? 'bg-blue-400 cursor-not-allowed w-full mt-4 text-white right-2.5 bottom-2.5 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-4 py-1'
               : 'w-full mt-4 text-white right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-4 py-1'
           }

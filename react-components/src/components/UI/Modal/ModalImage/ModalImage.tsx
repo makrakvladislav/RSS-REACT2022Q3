@@ -1,10 +1,11 @@
 import ImagePlaceholder from 'components/UI/ImagePlaceholder/ImagePlaceholder';
-import React, { memo, useContext } from 'react';
-import ModalContext from '../ModalContext';
+import React, { memo } from 'react';
+import { useModalContext } from '../ModalContext';
 import ModalImageLoader from './ModalImageLoader';
 
 const ModalImage = memo(() => {
-  const { modalData, isLoading } = useContext(ModalContext);
+  const { modalData, isLoading } = useModalContext();
+
   return (
     <div className="flex w-1/3 image">
       {isLoading ? (

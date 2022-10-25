@@ -6,27 +6,18 @@ import Data from '../api/api';
 import IMyState from '../interface/IMyState';
 import SearchError from 'components/UI/SearchError/SearchError';
 import Modal from 'components/UI/Modal/Modal';
+import ICard from '../interface/ICard';
 
 const Main = memo(() => {
-  const [items, setItems] = useState<IMyState>({ items: [] });
+  const [items, setItems] = useState<Array<ICard>>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [modalIsvisible, setModalIsvisible] = useState(false);
-  const [movieId, setModalMovieId] = useState(0);
+  const [visibleModalId, setVisibleModalId] = useState<number | null>(null); // modalId === movieId
 
   const getItems = async () => {
     const response = await Data.getMovies(1);
     if (response !== undefined) {
-      setItems({ items: response.results.results });
+      setItems(response.results.results);
       setIsLoading(false);
-    }
-  };
-
-  const modalHandler = async (isVisible: boolean, movieId?: number) => {
-    if (isVisible) {
-      setModalIsvisible(isVisible);
-      setModalMovieId(movieId!);
-    } else {
-      setModalIsvisible(isVisible);
     }
   };
 
@@ -34,7 +25,7 @@ const Main = memo(() => {
     setIsLoading(true);
     const response = await Data.getByQuery(1, query);
     if (response !== undefined) {
-      setItems({ items: response.results.results });
+      setItems(response.results.results);
       setIsLoading(false);
     }
   };
@@ -47,11 +38,9 @@ const Main = memo(() => {
     <>
       <h1>Main</h1>
       <Search handleSearch={searchHandler} />
-      {items.items.length == 0 && !isLoading && <SearchError />}
-      {isLoading ? <Loader /> : <CardsList items={items.items} setVisible={modalHandler} />}
-      {modalIsvisible && (
-        <Modal isVisible={modalIsvisible} movieId={movieId} setVisible={modalHandler} />
-      )}
+      {items.length == 0 && !isLoading && <SearchError />}
+      {isLoading ? <Loader /> : <CardsList items={items} setVisible={setVisibleModalId} />}
+      {visibleModalId && <Modal movieId={visibleModalId} setVisible={setVisibleModalId} />}
     </>
   );
 });

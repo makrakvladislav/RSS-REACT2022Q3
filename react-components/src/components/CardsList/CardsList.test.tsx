@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import CardList from './CardsList';
 import axios, { AxiosResponse } from 'axios';
 import Api from '../../api/api';
+import { voidFn } from '../../utils/helpers';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -61,6 +62,6 @@ test('Get Cardslist', async () => {
 
   if (response !== undefined) {
     expect(response.results).toEqual(mockedData);
-    render(<CardList items={response.results.results} />);
+    render(<CardList items={response.results.results} setVisible={voidFn} />);
   }
 });

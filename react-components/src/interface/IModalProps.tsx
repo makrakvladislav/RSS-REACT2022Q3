@@ -1,5 +1,4 @@
 export interface IModalProps {
   movieId: number;
-  isVisible: boolean;
-  setVisible?: (isVisible: boolean, movieId?: number) => void;
+  setVisible: (movieId: number | null) => void;
 }

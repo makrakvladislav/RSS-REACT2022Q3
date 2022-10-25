@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import axios, { AxiosResponse } from 'axios';
 import Api from '../../../api/api';
 import Modal from './Modal';
+import { voidFn } from '../../../utils/helpers';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -106,7 +107,7 @@ describe('Modal test', () => {
     expect(axios.get).toHaveBeenCalled();
     if (response !== undefined) {
       expect(data).toEqual([mockedData]);
-      const modal = render(<Modal movieId={604} isVisible={true} />);
+      const modal = render(<Modal movieId={604} setVisible={voidFn} />);
       expect(modal).toMatchSnapshot();
     }
   });

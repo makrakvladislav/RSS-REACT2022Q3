@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Card from './Card';
+import { voidFn } from '../../utils/helpers';
 
 const data = {
   adult: false,
@@ -21,7 +22,7 @@ const data = {
 };
 
 test('renders card component', () => {
-  render(<Card item={data} />);
+  render(<Card item={data} setVisible={voidFn} />);
   screen.debug();
   expect(screen.getByText(/Fullmetal Alchemist: The Final Alchemy/i)).toBeInTheDocument();
 });

@@ -17,5 +17,5 @@ export interface ICardListProps {
   }[];
   movieId?: number;
   modalIsVisible?: boolean;
-  setVisible?: (isVisible: boolean) => void;
+  setVisible: (movieId: number | null) => void;
 }

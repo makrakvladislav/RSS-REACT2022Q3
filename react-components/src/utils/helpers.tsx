@@ -26,4 +26,6 @@ const contryValidate: countryCheck = (val) => {
   return val !== 'default';
 };
 
-export { emailValidate, dateValidate, nameValidate, contryValidate };
+const voidFn = () => void 0;
+
+export { emailValidate, dateValidate, nameValidate, contryValidate, voidFn };

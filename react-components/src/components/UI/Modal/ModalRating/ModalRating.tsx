@@ -1,5 +1,5 @@
-import React, { memo, useContext } from 'react';
-import ModalContext from '../ModalContext';
+import React, { memo } from 'react';
+import { useModalContext } from '../ModalContext';
 import ModalRatingLoader from './ModalRatingLoader';
 
 const IconStar = () => (
@@ -16,7 +16,8 @@ const IconStar = () => (
 );
 
 const Rating = memo(() => {
-  const { modalData, isLoading } = useContext(ModalContext);
+  const { modalData, isLoading } = useModalContext();
+
   return (
     <>
       {isLoading ? (
