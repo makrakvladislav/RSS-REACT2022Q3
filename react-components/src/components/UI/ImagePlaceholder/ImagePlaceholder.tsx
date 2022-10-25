@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-export default React.memo(function ImagePlaceholder() {
+const ImagePlaceholder = memo(() => {
   return (
     <div
       role="status"
@@ -20,3 +20,5 @@ export default React.memo(function ImagePlaceholder() {
     </div>
   );
 });
+
+export default ImagePlaceholder;
