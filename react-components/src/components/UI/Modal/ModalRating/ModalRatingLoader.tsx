@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import ContentLoader, { IContentLoaderProps } from 'react-content-loader';
 
-const ModalRatingLoader = (props: JSX.IntrinsicAttributes & IContentLoaderProps) => (
+const ModalRatingLoader = memo((props: JSX.IntrinsicAttributes & IContentLoaderProps) => (
   <ContentLoader
     speed={1}
     width={476}
@@ -14,6 +14,6 @@ const ModalRatingLoader = (props: JSX.IntrinsicAttributes & IContentLoaderProps)
     <rect x="90" y="7" rx="3" ry="3" width="73" height="10" />
     <rect x="5" y="7" rx="3" ry="3" width="73" height="10" />
   </ContentLoader>
-);
+));
 
 export default ModalRatingLoader;

@@ -7,7 +7,7 @@ import './Loader.css';
   </div>
 */
 
-export default memo(function Loader() {
+const Loader = memo(() => {
   return (
     <>
       <p className="py-2.5 px-5 mt-20 text-center text-md font-medium text-gray-900inline-flex items-center">
@@ -32,3 +32,5 @@ export default memo(function Loader() {
     </>
   );
 });
+
+export default Loader;

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { memo, useContext } from 'react';
 import ModalContext from '../ModalContext';
 import ModalRatingLoader from './ModalRatingLoader';
 
@@ -15,26 +15,26 @@ const IconStar = () => (
   </svg>
 );
 
-export default React.memo(function Rating() {
+const Rating = memo(() => {
   const { modalData, isLoading } = useContext(ModalContext);
   return (
     <>
       {isLoading ? (
         <ModalRatingLoader />
       ) : (
-        <>
-          <div className="rating flex items-center mb-5">
-            <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">
-              {modalData[0].vote_average.toFixed(2)}
-            </p>
-            <IconStar />
-            <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
-            <span className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
-              {modalData[0].vote_average} reviews
-            </span>
-          </div>
-        </>
+        <div className="rating flex items-center mb-5">
+          <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">
+            {modalData[0].vote_average.toFixed(2)}
+          </p>
+          <IconStar />
+          <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
+          <span className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">
+            {modalData[0].vote_average} reviews
+          </span>
+        </div>
       )}
     </>
   );
 });
+
+export default Rating;

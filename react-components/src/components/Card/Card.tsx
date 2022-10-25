@@ -2,7 +2,7 @@ import IMyProps from '../../interface/IMyProps';
 import React, { memo } from 'react';
 import ImagePlaceholder from 'components/UI/ImagePlaceholder/ImagePlaceholder';
 
-export default memo(function Card(props: IMyProps) {
+const Card = memo((props: IMyProps) => {
   return (
     <>
       <div className="card flex flex-col bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
@@ -31,3 +31,5 @@ export default memo(function Card(props: IMyProps) {
     </>
   );
 });
+
+export default Card;

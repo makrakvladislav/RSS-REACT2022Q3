@@ -1,9 +1,9 @@
 import ImagePlaceholder from 'components/UI/ImagePlaceholder/ImagePlaceholder';
-import React, { useContext } from 'react';
+import React, { memo, useContext } from 'react';
 import ModalContext from '../ModalContext';
 import ModalImageLoader from './ModalImageLoader';
 
-function ModalImage() {
+const ModalImage = memo(() => {
   const { modalData, isLoading } = useContext(ModalContext);
   return (
     <div className="flex w-1/3 image">
@@ -23,6 +23,6 @@ function ModalImage() {
       )}
     </div>
   );
-}
+});
 
 export default ModalImage;

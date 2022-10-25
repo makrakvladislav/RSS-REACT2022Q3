@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React, { memo } from 'react';
 
-class About extends Component {
-  render() {
-    return <h1>About Page</h1>;
-  }
-}
+const About = memo(() => {
+  return <h1>About</h1>;
+});
 
 export default About;

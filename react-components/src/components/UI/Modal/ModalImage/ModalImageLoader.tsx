@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import ContentLoader, { IContentLoaderProps } from 'react-content-loader';
 
-const ModalImageLoader = (props: JSX.IntrinsicAttributes & IContentLoaderProps) => (
+const ModalImageLoader = memo((props: JSX.IntrinsicAttributes & IContentLoaderProps) => (
   <ContentLoader
     speed={1}
     width={284}
@@ -14,6 +14,6 @@ const ModalImageLoader = (props: JSX.IntrinsicAttributes & IContentLoaderProps) 
     <rect x="67" y="75" rx="0" ry="0" width="1" height="4" />
     <rect x="6" y="0" rx="0" ry="0" width="423" height="508" />
   </ContentLoader>
-);
+));
 
 export default ModalImageLoader;

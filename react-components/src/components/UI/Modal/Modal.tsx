@@ -26,7 +26,7 @@ const IconClose = () => (
   </svg>
 );
 
-export default memo(function Modal(props: IModalProps) {
+const Modal = memo((props: IModalProps) => {
   const [modalData, setModalData] = useState<IModalState>({ modalData: [] });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -97,3 +97,5 @@ export default memo(function Modal(props: IModalProps) {
     </ModalContext.Provider>
   );
 });
+
+export default Modal;

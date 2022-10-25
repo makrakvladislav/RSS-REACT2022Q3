@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default React.memo(function Footer() {
+const Footer = memo(() => {
   return (
     <>
       <footer className="w-full p-4 bg-gray-50 rounded border-gray-200 flex flex-wrap justify-between items-center mx-auto mt-auto">
@@ -36,3 +36,5 @@ export default React.memo(function Footer() {
     </>
   );
 });
+
+export default Footer;

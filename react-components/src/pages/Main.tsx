@@ -1,13 +1,13 @@
 import CardsList from '../components/CardsList/CardsList';
 import Loader from '../components/UI/Loader/Loader';
 import Search from '../components/Search/Search';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import Data from '../api/api';
 import IMyState from '../interface/IMyState';
 import SearchError from 'components/UI/SearchError/SearchError';
 import Modal from 'components/UI/Modal/Modal';
 
-function Main() {
+const Main = memo(() => {
   const [items, setItems] = useState<IMyState>({ items: [] });
   const [isLoading, setIsLoading] = useState(true);
   const [modalIsvisible, setModalIsvisible] = useState(false);
@@ -54,6 +54,6 @@ function Main() {
       )}
     </>
   );
-}
+});
 
 export default Main;

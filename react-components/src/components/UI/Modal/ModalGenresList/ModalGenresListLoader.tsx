@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import ContentLoader, { IContentLoaderProps } from 'react-content-loader';
 
-const ModalGenresListLoader = (props: JSX.IntrinsicAttributes & IContentLoaderProps) => (
+const ModalGenresListLoader = memo((props: JSX.IntrinsicAttributes & IContentLoaderProps) => (
   <ContentLoader
     speed={1}
     width={476}
@@ -15,6 +15,6 @@ const ModalGenresListLoader = (props: JSX.IntrinsicAttributes & IContentLoaderPr
     <rect x="87" y="3" rx="3" ry="3" width="73" height="24" />
     <rect x="170" y="3" rx="3" ry="3" width="73" height="24" />
   </ContentLoader>
-);
+));
 
 export default ModalGenresListLoader;

@@ -1,5 +1,5 @@
-import Input from 'components/UI/Input/Input';
 import React, { useEffect, useRef, useState } from 'react';
+
 import './Search.css';
 interface ChildProps {
   handleSearch?: (searchQuery: string) => void;
@@ -63,24 +63,25 @@ function Search(props: ChildProps) {
           <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
             <IconSearch />
           </div>
-          <Input
-            ref={valueRef}
-            data-testid="search"
-            type="search"
-            name="search"
-            value={searchQuery}
-            iserror={1}
-            placeholder="Search..."
-            onChange={handleChange}
-          />
-
+          <div className="flex items-center">
+            <input
+              ref={valueRef}
+              data-testid="search"
+              type="search"
+              name="search"
+              value={searchQuery}
+              placeholder="Search..."
+              onChange={handleChange}
+              className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
+            />
+          </div>
           <button
             type="submit"
             disabled={disabledSearch}
             className={
               disabledSearch
-                ? 'bg-blue-400 cursor-not-allowed text-white absolute right-2.5 bottom-2.5 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1'
-                : 'text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1'
+                ? 'bg-blue-400 cursor-not-allowed text-white absolute right-2.5 bottom-2 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1'
+                : 'text-white absolute right-2.5 bottom-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1'
             }
           >
             Search

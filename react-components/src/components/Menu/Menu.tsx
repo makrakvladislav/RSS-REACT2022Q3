@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
-export default React.memo(function Menu() {
+const Menu = memo(() => {
   return (
     <nav className="flex w-full content-center">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
@@ -41,3 +41,5 @@ export default React.memo(function Menu() {
     </nav>
   );
 });
+
+export default Menu;

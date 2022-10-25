@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import ContentLoader, { IContentLoaderProps } from 'react-content-loader';
 
-const ModalTitleLoader = (props: JSX.IntrinsicAttributes & IContentLoaderProps) => (
+const ModalTitleLoader = memo((props: JSX.IntrinsicAttributes & IContentLoaderProps) => (
   <ContentLoader
     speed={2}
     width={500}
@@ -15,6 +15,6 @@ const ModalTitleLoader = (props: JSX.IntrinsicAttributes & IContentLoaderProps) 
     <rect x="5" y="19" rx="3" ry="3" width="321" height="11" />
     <rect x="5" y="3" rx="3" ry="3" width="384" height="11" />
   </ContentLoader>
-);
+));
 
 export default ModalTitleLoader;
