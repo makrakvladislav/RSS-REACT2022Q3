@@ -4,6 +4,6 @@ import About from '../About';
 
 test('renders correclty Main Page', () => {
   render(<About />);
-  const linkElement = screen.getByText(/About page/i);
+  const linkElement = screen.getByText(/About/i);
   expect(linkElement).toBeInTheDocument();
 });

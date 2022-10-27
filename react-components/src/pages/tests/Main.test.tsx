@@ -4,5 +4,5 @@ import Main from '../Main';
 
 test('renders correclty Main Page', () => {
   render(<Main />);
-  expect(screen.getByText(/Main Page/i)).toBeInTheDocument();
+  expect(screen.getByText(/Main/i)).toBeInTheDocument();
 });

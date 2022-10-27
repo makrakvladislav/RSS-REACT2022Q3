@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import FormCardsList from './FormCardsList';
-/*
+
 const mockedData = [
   {
     name: 'Jhon',
@@ -27,7 +27,7 @@ const mockedData = [
 
 describe('Form Cards list', () => {
   it('Render form cards list', () => {
-    render(<FormCardsList items={mockedData} />);
+    //render(<FormCardsList items={mockedData} />);
     expect(screen.getByTestId('form-cardsList')).toBeInTheDocument();
     const name = screen.getByText(/Jhon/i);
     const lastName = screen.getByText(/Doe/i);
@@ -35,4 +35,3 @@ describe('Form Cards list', () => {
     expect(lastName).toBeInTheDocument();
   });
 });
-*/
