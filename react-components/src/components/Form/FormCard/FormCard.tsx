@@ -1,9 +1,22 @@
 import React, { memo } from 'react';
-
-import IForm from 'interface/IFormProps';
 import ImagePlaceholder from 'components/UI/ImagePlaceholder/ImagePlaceholder';
 
-const FormCard = memo((props: IForm) => {
+export interface IFormCard {
+  name: string;
+  lastName: string;
+  birthday: Date;
+  email: string;
+  avatar: string;
+  country: string;
+  agree: boolean;
+  subscribe: boolean;
+}
+
+export interface IFormCardProps {
+  item: IFormCard;
+}
+
+const FormCard = memo((props: IFormCardProps) => {
   return (
     <>
       <div className="card flex flex-col bg-white rounded-lg border border-gray-200 shadow-md">

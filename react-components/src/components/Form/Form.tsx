@@ -4,21 +4,11 @@ import { emailValidate, dateValidate, contryValidate } from 'utils/helpers';
 import React, { memo, useCallback, useEffect } from 'react';
 import Toggle from 'components/UI/Toggle/Toggle';
 import Checkbox from 'components/UI/Checkbox/Checkbox';
-import IFormCard from 'interface/IFormCard';
 import { useForm } from 'react-hook-form';
+import { IFormCard } from './FormCard/FormCard';
 
 interface ChildProps {
-  handleClick?: (items: IFormCard) => void;
-}
-interface IForm {
-  name: string;
-  lastName: string;
-  birthday: Date;
-  email: string;
-  avatar: string;
-  country: string;
-  agree: boolean;
-  subscribe: boolean;
+  handleClick: (items: IFormCard) => void;
 }
 
 const selectOption = ['Belarus', 'Ukraine', 'United States', 'Poland'];
@@ -30,7 +20,7 @@ const Form = memo<ChildProps>(({ handleClick }) => {
     reset,
     formState,
     formState: { errors, isValid, isDirty, isSubmitted },
-  } = useForm<IForm>({ mode: 'onSubmit' });
+  } = useForm<IFormCard>({ mode: 'onSubmit' });
 
   const onSubmit = useCallback(
     (data: IFormCard) => {
@@ -53,7 +43,7 @@ const Form = memo<ChildProps>(({ handleClick }) => {
         subscribe: data.subscribe,
         agree: data.agree,
       };
-      handleClick!(item); // todo !
+      handleClick(item); // todo !
     },
     [handleClick]
   );
@@ -75,51 +65,60 @@ const Form = memo<ChildProps>(({ handleClick }) => {
       >
         <div className="mb-3">
           <Input
+            data-testid="name"
             type="text"
-            error={{ hasError: errors.name, message: 'Name should contains at least 3 characters' }}
+            hasError={errors.name}
+            message={'Name should contains at least 3 characters'}
             {...register('name', { required: true, minLength: 3 })}
           />
         </div>
 
         <div className="mb-3">
           <Input
+            data-testid="last-name"
             type="text"
-            error={{
-              hasError: errors.lastName,
-              message: 'Last Name should contains at least 3 characters',
-            }}
+            hasError={errors.lastName}
+            message={'last Name should contains at least 3 characters'}
             {...register('lastName', { required: true, minLength: 3 })}
           />
         </div>
 
         <div className="mb-3">
           <Input
+            data-testid="birthday"
             type="date"
-            error={{ hasError: errors.birthday, message: 'Input correct birthday date' }}
+            hasError={errors.birthday}
+            message={'Input correct birthday date'}
             {...register('birthday', { required: true, validate: dateValidate })}
           />
         </div>
 
         <div className="mb-3">
           <Input
+            data-testid="email"
             type="email"
-            error={{ hasError: errors.email, message: 'Wrong email' }}
+            hasError={errors.email}
+            message={'Wrong email'}
             {...register('email', { required: true, validate: emailValidate })}
           />
         </div>
 
         <div className="mb-3">
           <Input
+            data-testid="avatar"
             type="file"
-            error={{ hasError: errors.avatar, message: 'Choose your avatar' }}
+            hasError={errors.avatar}
+            message={'Choose your avatar'}
             {...register('avatar', { required: false })}
           />
         </div>
 
         <div className="mb-3">
           <Select
+            data-testid="country"
             options={selectOption}
-            error={{ hasError: errors.country, message: 'Choose your country' }}
+            hasError={errors.country}
+            message={'Choose your country'}
             {...register('country', { required: true, validate: contryValidate })}
           />
         </div>
@@ -129,7 +128,8 @@ const Form = memo<ChildProps>(({ handleClick }) => {
             type="checkbox"
             data-testid="agree"
             label="I consent to my personal data"
-            error={{ hasError: errors.agree, message: 'Agree to consent personal data' }}
+            hasError={errors.agree}
+            message={'Agree to consent personal data'}
             {...register('agree', { required: true })}
           />
         </div>
@@ -138,7 +138,8 @@ const Form = memo<ChildProps>(({ handleClick }) => {
           <Toggle
             type="checkbox"
             data-testid="subscribe"
-            error={{ message: 'subscribe' }}
+            hasError={errors.subscribe}
+            message={'subscribe'}
             {...register('subscribe', { required: false })}
           />
         </div>

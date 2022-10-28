@@ -3,10 +3,9 @@ import Loader from '../components/UI/Loader/Loader';
 import Search from '../components/Search/Search';
 import React, { memo, useEffect, useState } from 'react';
 import Data from '../api/api';
-import IMyState from '../interface/IMyState';
 import SearchError from 'components/UI/SearchError/SearchError';
 import Modal from 'components/UI/Modal/Modal';
-import ICard from '../interface/ICard';
+import { ICard } from 'components/Card/Card';
 
 const Main = memo(() => {
   const [items, setItems] = useState<Array<ICard>>([]);

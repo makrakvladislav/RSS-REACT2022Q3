@@ -1,14 +1,13 @@
-import React, { forwardRef } from 'react';
-import { FieldError } from 'react-hook-form';
+import React, { forwardRef, memo } from 'react';
+import { InputProps } from '../Input/Input';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface ICheckboxProps extends InputProps {
   type: string;
   label: string;
-  error: { hasError?: FieldError | undefined | boolean; message: string };
 }
 
-const Checkbox = forwardRef<HTMLInputElement, InputProps>(
-  ({ ...inputProps }: InputProps, ref: React.Ref<HTMLInputElement>) => {
+const Checkbox = memo(
+  forwardRef<HTMLInputElement, ICheckboxProps>(({ hasError, message, ...inputProps }, ref) => {
     return (
       <>
         <div className="flex items-center">
@@ -17,7 +16,7 @@ const Checkbox = forwardRef<HTMLInputElement, InputProps>(
             {...inputProps}
             id="checkbox"
             className={
-              inputProps.error.hasError
+              hasError
                 ? 'h-4 w-4 bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg p-2.5'
                 : 'h-4 w-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5'
             }
@@ -28,16 +27,16 @@ const Checkbox = forwardRef<HTMLInputElement, InputProps>(
         </div>
         <div
           className={
-            inputProps.error.hasError
+            hasError
               ? 'flex mt-1 text-sm text-red-600 opacity-1 transition-opacity duration-300'
               : 'flex mt-1 text-sm text-red-600 opacity-0 transition-opacity duration-300'
           }
         >
-          {inputProps.error.message}
+          {message}
         </div>
       </>
     );
-  }
+  })
 );
 
 export default Checkbox;

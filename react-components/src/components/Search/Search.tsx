@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 
 import './Search.css';
 interface ChildProps {
-  handleSearch?: (searchQuery: string) => void;
+  handleSearch: (searchQuery: string) => void;
 }
 
 const IconSearch = () => (
@@ -23,7 +23,7 @@ const IconSearch = () => (
   </svg>
 );
 
-function Search(props: ChildProps) {
+const Search = memo((props: ChildProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [disabledSearch, setDisabledSearch] = useState(true);
   const valueRef = useRef<HTMLInputElement | null>(null);
@@ -90,6 +90,6 @@ function Search(props: ChildProps) {
       </form>
     </>
   );
-}
+});
 
 export default Search;

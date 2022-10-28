@@ -1,8 +1,28 @@
-import IMyProps from '../../interface/IMyProps';
 import React, { memo, useCallback } from 'react';
 import ImagePlaceholder from 'components/UI/ImagePlaceholder/ImagePlaceholder';
 
-const Card = memo<IMyProps>(({ item, setVisible }) => {
+export interface ICard {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: Array<number>;
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+interface ICardProps {
+  item: ICard;
+  setVisible: (movieId: number | null) => void;
+}
+
+const Card = memo<ICardProps>(({ item, setVisible }) => {
   const openModal = useCallback(() => setVisible(item.id), [item]);
 
   return (
@@ -12,6 +32,7 @@ const Card = memo<IMyProps>(({ item, setVisible }) => {
           <img
             src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
             className="w-full rounded-t-lg object-contain max-w-md"
+            loading="lazy"
             alt="Post img"
           />
         ) : (

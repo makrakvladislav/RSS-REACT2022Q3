@@ -1,9 +1,11 @@
 import React, { memo } from 'react';
-import IFromCardListProps from 'interface/IFormCardsListProps';
-import FormCard from '../FormCard/FormCard';
-import IFormCard from 'interface/IFormCard';
+import FormCard, { IFormCard } from '../FormCard/FormCard';
 
-const FormCardsList = memo((props: IFromCardListProps) => {
+interface IFormCardsListProps {
+  items: Array<IFormCard>;
+}
+
+const FormCardsList = memo((props: IFormCardsListProps) => {
   return (
     <>
       <div

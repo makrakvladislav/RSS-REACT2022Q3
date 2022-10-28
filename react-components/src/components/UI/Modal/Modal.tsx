@@ -1,14 +1,18 @@
 import Data from 'api/api';
-import { IModalProps } from 'interface/IModalProps';
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import ModalGenresList from './ModalGenresList/ModalGenresList';
 import ModalRating from './ModalRating/ModalRating';
 import ModalImage from './ModalImage/ModalImage';
 import ModatlTitle from './ModalTitle/ModatlTitle';
 import ModalContent from './ModalContent/ModalContent';
-import { IModalState } from 'interface/IModalState';
 import ModalContext from './ModalContext';
 import './Modal.css';
+import { movieById } from 'interface/IMovieById';
+
+export interface IModalProps {
+  movieId: number;
+  setVisible: (movieId: number | null) => void;
+}
 
 const IconClose = memo(() => (
   <svg
@@ -27,19 +31,15 @@ const IconClose = memo(() => (
 ));
 
 const Modal = memo<IModalProps>(({ movieId, setVisible }) => {
-  const [modalData, setModalData] = useState<IModalState>({ modalData: [] }); // todo
+  const [modalData, setModalData] = useState<Array<movieById>>([]); // todo
   const [isLoading, setIsLoading] = useState(true);
 
-  const getModalData = async (movieId?: number) => {
-    setTimeout(async () => {
-      const response = await Data.getByMovieId(movieId!);
-      if (response !== undefined) {
-        setModalData({
-          modalData: [response.results],
-        });
-        setIsLoading(false);
-      }
-    }, 2000);
+  const getModalData = async (movieId: number) => {
+    const response = await Data.getByMovieId(movieId);
+    if (response !== undefined) {
+      setModalData([response.results]);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const Modal = memo<IModalProps>(({ movieId, setVisible }) => {
   }, []);
 
   const data = {
-    ...modalData,
+    modalData,
     isLoading,
   };
 

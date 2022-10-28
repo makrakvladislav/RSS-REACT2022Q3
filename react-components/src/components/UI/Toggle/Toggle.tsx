@@ -1,13 +1,12 @@
-import React from 'react';
-import { FieldError } from 'react-hook-form';
+import React, { forwardRef, memo } from 'react';
+import { InputProps } from '../Input/Input';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface IToggleProps extends InputProps {
   type: string;
-  error: { hasError?: FieldError | undefined | boolean; message: string };
 }
 
-const Toggle = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ ...inputProps }: InputProps, ref: React.Ref<HTMLInputElement>) => {
+const Toggle = memo(
+  forwardRef<HTMLInputElement, IToggleProps>(({ hasError, message, ...inputProps }, ref) => {
     return (
       <>
         <div className="flex items-center">
@@ -24,7 +23,7 @@ const Toggle = React.forwardRef<HTMLInputElement, InputProps>(
         </div>
       </>
     );
-  }
+  })
 );
 
 export default Toggle;
