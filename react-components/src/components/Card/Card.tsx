@@ -1,5 +1,12 @@
 import React, { memo, useCallback } from 'react';
 import ImagePlaceholder from 'components/UI/ImagePlaceholder/ImagePlaceholder';
+import {
+  addItemAction,
+  itemSelector,
+  useDispatch,
+  useSelector,
+  useState,
+} from 'components/GlobalState/StateContext';
 
 export interface ICard {
   adult: boolean;
@@ -24,6 +31,16 @@ interface ICardProps {
 
 const Card = memo<ICardProps>(({ item, setVisible }) => {
   const openModal = useCallback(() => setVisible(item.id), [item]);
+  const dispatch = useDispatch();
+
+  //const state = useState();
+  //const id = 3;
+  //const card = useSelector(itemSelector(id));
+  ///const item = state.items.find((item) => item.id === id);
+
+  const handleClick = () => {
+    dispatch(addItemAction(item));
+  }; //useCallback = [item]
 
   return (
     <>
@@ -49,6 +66,7 @@ const Card = memo<ICardProps>(({ item, setVisible }) => {
           >
             More info
           </button>
+          <button onClick={handleClick}>add</button>
         </div>
       </div>
     </>

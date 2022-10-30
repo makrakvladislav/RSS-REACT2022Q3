@@ -22,6 +22,11 @@ const Footer = memo(() => {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/catalog" end className="mr-4 font-medium hover:underline">
+              Catalog
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/about" className="mr-4 font-medium hover:underline">
               About us
             </NavLink>

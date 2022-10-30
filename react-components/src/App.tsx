@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Reducer, useReducer } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import Main from './pages/Main';
@@ -6,19 +6,24 @@ import NotFound from './pages/404';
 import About from './pages/About';
 import Forms from './pages/Forms';
 import './App.css';
+import Catalog from 'pages/Catalog';
+import { StateProvider } from 'components/GlobalState/StateProvider';
 
 function App() {
   return (
     <div className="App">
       <div className="container mx-auto px-4 flex flex-col min-h-screen">
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Main />} />
-            <Route path="about" element={<About />} />
-            <Route path="forms" element={<Forms />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
+        <StateProvider>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Main />} />
+              <Route path="catalog" element={<Catalog />} />
+              <Route path="about" element={<About />} />
+              <Route path="forms" element={<Forms />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </StateProvider>
       </div>
     </div>
   );

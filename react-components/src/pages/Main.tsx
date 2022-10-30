@@ -15,6 +15,7 @@ const Main = memo(() => {
   const getItems = async () => {
     const response = await Data.getMovies(1);
     if (response !== undefined) {
+      console.log(response.results);
       setItems(response.results.results);
       setIsLoading(false);
     }
