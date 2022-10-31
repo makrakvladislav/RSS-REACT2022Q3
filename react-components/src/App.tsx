@@ -6,7 +6,7 @@ import NotFound from './pages/404';
 import About from './pages/About';
 import Forms from './pages/Forms';
 import './App.css';
-import Catalog from 'pages/Catalog';
+import Search from 'pages/Search';
 import { StateProvider } from 'components/GlobalState/StateProvider';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Main />} />
-              <Route path="catalog" element={<Catalog />} />
+              <Route path="search" element={<Search />} />
               <Route path="about" element={<About />} />
               <Route path="forms" element={<Forms />} />
               <Route path="*" element={<NotFound />} />

@@ -6,19 +6,25 @@ import { StateContext } from './StateContext';
 import stateReducer from './StateReducer';
 
 export interface IState {
-  items: Array<ICard>;
-  /*
   cache: {
     cards: Array<ICard>;
   };
+
   workspace: {
     searchPage: {
-      searchQuery: string;
+      searchQuery: string | null;
     };
-    catalogPage: {
-      sortBy: string;
+    mainPage: {
+      sortBy: string | null;
+      pagination: {
+        pagesCount: number | null;
+        currentPage: number | null;
+      };
     };
   };
+
+  /*
+  items: Array<ICard>;
   */
 }
 
@@ -26,9 +32,21 @@ export interface IState {
 //syncSearchQuery
 
 export const initialState: IState = {
-  items: [],
-  //addItem: (item: ICard) => {},
-  //removeItem: (item: ICard) => {},
+  cache: {
+    cards: [],
+  },
+  workspace: {
+    searchPage: {
+      searchQuery: null,
+    },
+    mainPage: {
+      sortBy: null,
+      pagination: {
+        pagesCount: null,
+        currentPage: null,
+      },
+    },
+  },
 };
 
 interface IProps {

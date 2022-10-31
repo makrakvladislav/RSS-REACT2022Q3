@@ -21,11 +21,11 @@ const Menu = memo(() => {
             </li>
             <li>
               <NavLink
-                to="/catalog"
+                to="/search"
                 end
                 className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
               >
-                Catalog
+                Search
               </NavLink>
             </li>
             <li>

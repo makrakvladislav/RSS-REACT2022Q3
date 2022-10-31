@@ -1,12 +1,12 @@
 import React, { memo, useCallback } from 'react';
 import ImagePlaceholder from 'components/UI/ImagePlaceholder/ImagePlaceholder';
 import {
-  addItemAction,
   itemSelector,
   useDispatch,
   useSelector,
-  useState,
+  useCustomState,
 } from 'components/GlobalState/StateContext';
+import { addItemAction, removeItemAction } from 'components/GlobalState/Actions';
 
 export interface ICard {
   adult: boolean;
@@ -42,6 +42,10 @@ const Card = memo<ICardProps>(({ item, setVisible }) => {
     dispatch(addItemAction(item));
   }; //useCallback = [item]
 
+  const removeItem = () => {
+    dispatch(removeItemAction(item.id));
+  };
+
   return (
     <>
       <div className="card flex flex-col bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
@@ -67,6 +71,7 @@ const Card = memo<ICardProps>(({ item, setVisible }) => {
             More info
           </button>
           <button onClick={handleClick}>add</button>
+          <button onClick={removeItem}>remove</button>
         </div>
       </div>
     </>

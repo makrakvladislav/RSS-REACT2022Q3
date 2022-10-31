@@ -16,6 +16,8 @@ export default interface IResponse {
       vote_average: number;
       vote_count: number;
     }[];
+    total_pages: number;
+    page: number;
   };
   totalCount: number;
 }
