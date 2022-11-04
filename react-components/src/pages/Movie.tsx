@@ -27,7 +27,7 @@ const Movie = memo(() => {
 
   return (
     <>
-      <div className="relative p-4 w-full max-w-6xl h-full md:h-auto">
+      <div className="relative p-4 w-full h-full md:h-auto">
         <div className="relative bg-white rounded-lg shadow">
           <h1 className="flex justify-between items-center p-5 rounded-t border-b">
             {card.title}
