@@ -2,12 +2,13 @@ import axios from 'axios';
 import IResponse from 'interface/IResponse';
 import IResponseByMovieId from 'interface/IResponseByMovieId';
 export default class Data {
-  static async getMovies(page: number): Promise<IResponse | void> {
+  static async getMovies(page: number, sortBy: string): Promise<IResponse | void> {
     return await axios
       .get('https://api.themoviedb.org/3/discover/movie?', {
         params: {
           api_key: '1939abe3d00976407f86acd63c341f94',
           page: page,
+          sort_by: sortBy + '.desc',
         },
       })
       .then((response) => {
