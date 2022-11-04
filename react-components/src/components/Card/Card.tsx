@@ -1,12 +1,6 @@
 import React, { memo, useCallback } from 'react';
 import ImagePlaceholder from 'components/UI/ImagePlaceholder/ImagePlaceholder';
-import {
-  itemSelector,
-  useDispatch,
-  useSelector,
-  useCustomState,
-} from 'components/GlobalState/StateContext';
-import { addItemAction, removeItemAction } from 'components/GlobalState/Actions';
+import { useNavigate } from 'react-router-dom';
 
 export interface ICard {
   adult: boolean;
@@ -31,28 +25,16 @@ interface ICardProps {
 
 const Card = memo<ICardProps>(({ item, setVisible }) => {
   const openModal = useCallback(() => setVisible(item.id), [item]);
-  const dispatch = useDispatch();
-
-  //const state = useState();
-  //const id = 3;
-  //const card = useSelector(itemSelector(id));
-  ///const item = state.items.find((item) => item.id === id);
-
-  const handleClick = () => {
-    dispatch(addItemAction(item));
-  }; //useCallback = [item]
-
-  const removeItem = () => {
-    dispatch(removeItemAction(item.id));
-  };
+  const navigate = useNavigate();
 
   return (
     <>
       <div className="card flex flex-col bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
         {item.poster_path !== null ? (
           <img
+            onClick={openModal}
             src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
-            className="w-full rounded-t-lg object-contain max-w-md"
+            className="w-full rounded-t-lg object-contain max-w-md hover:cursor-pointer"
             loading="lazy"
             alt="Post img"
           />
@@ -64,14 +46,22 @@ const Card = memo<ICardProps>(({ item, setVisible }) => {
           <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {item.title}
           </h3>
+
+          {/*
           <button
             onClick={openModal}
             className="w-full mt-4 text-white right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-4 py-1"
           >
             More info
           </button>
-          <button onClick={handleClick}>add</button>
-          <button onClick={removeItem}>remove</button>
+          */}
+
+          <button
+            onClick={() => navigate(`/movie/${item.id}`)}
+            className="w-full mt-4 text-white right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-4 py-1"
+          >
+            More info
+          </button>
         </div>
       </div>
     </>
