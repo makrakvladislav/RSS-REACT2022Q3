@@ -28,4 +28,15 @@ const contryValidate: countryCheck = (val) => {
 
 const voidFn = () => void 0;
 
-export { emailValidate, dateValidate, nameValidate, contryValidate, voidFn };
+const sortOptions = ['popularity', 'title', 'vote', 'release date'];
+const limitOptions = ['20', '10', '5'];
+
+export {
+  emailValidate,
+  dateValidate,
+  nameValidate,
+  contryValidate,
+  voidFn,
+  sortOptions,
+  limitOptions,
+};
