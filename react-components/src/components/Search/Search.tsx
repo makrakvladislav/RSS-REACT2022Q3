@@ -1,9 +1,10 @@
+import { saveSearchQueryAction } from 'components/GlobalState/Actions';
+import { useDispatch } from 'components/GlobalState/StateContext';
+import { CatalogSelector } from 'components/UI/CatalogSelector/CatalogSelector';
 import React, { memo, useEffect, useRef, useState } from 'react';
+import { limitOptions } from 'utils/helpers';
 
 import './Search.css';
-interface ChildProps {
-  handleSearch: (searchQuery: string) => void;
-}
 
 const IconSearch = () => (
   <svg
@@ -23,7 +24,8 @@ const IconSearch = () => (
   </svg>
 );
 
-const Search = memo((props: ChildProps) => {
+const Search = memo(() => {
+  const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
   const [disabledSearch, setDisabledSearch] = useState(true);
   const valueRef = useRef<HTMLInputElement | null>(null);
@@ -38,8 +40,9 @@ const Search = memo((props: ChildProps) => {
   };
 
   const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    dispatch(saveSearchQueryAction(searchQuery));
     e.preventDefault();
-    props.handleSearch!(searchQuery);
+    //dispatch(paginationSearchAction(1, 1));
   };
 
   useEffect(() => {
@@ -58,8 +61,8 @@ const Search = memo((props: ChildProps) => {
 
   return (
     <>
-      <form className="flex-1 mt-8 mb-8 max-w-sm mx-auto" onSubmit={onSubmitForm}>
-        <div className="relative">
+      <form className="flex flex-row mt-8 mb-8 max-w-sm mx-auto gap-3" onSubmit={onSubmitForm}>
+        <div className="relative w-full">
           <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
             <IconSearch />
           </div>
@@ -87,6 +90,7 @@ const Search = memo((props: ChildProps) => {
             Search
           </button>
         </div>
+        <CatalogSelector type="limit" options={limitOptions} />
       </form>
     </>
   );
