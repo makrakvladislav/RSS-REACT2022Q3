@@ -7,13 +7,13 @@ import Modal from 'components/UI/Modal/Modal';
 import {
   cachedItemsSelector,
   limitPerPageSelector,
-  pageMainCurrentSelector,
-  sortPageSelector,
+  currentMainPageSelector,
   useCustomState,
   useDispatch,
   useSelector,
+  sortTypeSelector,
 } from 'components/GlobalState/StateContext';
-import { fetchDataAction, paginationAction } from 'components/GlobalState/Actions';
+import { fetchDataAction, paginationMainAction } from 'components/GlobalState/Actions';
 import Pagination from 'components/UI/Pagination/Pagination';
 import CatalogSelector from 'components/UI/CatalogSelector/CatalogSelector';
 import { limitOptions, sortOptions } from 'utils/helpers';
@@ -26,22 +26,22 @@ const Main = memo(() => {
   const [isLoading, setIsLoading] = useState(true);
   const [visibleModalId, setVisibleModalId] = useState<number | null>(null); // modalId === movieId
 
-  const currentPageNumber = useSelector(pageMainCurrentSelector);
-  const sortType = useSelector(sortPageSelector);
+  const currentPage = useSelector(currentMainPageSelector);
+  const sortType = useSelector(sortTypeSelector);
 
-  const getData = async (currentPageNumber: number, sortBy: string, limit: number) => {
+  const getData = async (page: number, sortBy: string, limit: number) => {
     setIsLoading(true);
-    const response = await Data.getMovies(currentPageNumber, sortBy);
+    const response = await Data.getMovies(page, sortBy);
     if (response !== undefined) {
       dispatch(fetchDataAction(response.results.results.slice(0, limit)));
-      dispatch(paginationAction(response.results.page, response.results.total_pages));
+      dispatch(paginationMainAction(response.results.page, response.results.total_pages));
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    getData(currentPageNumber, sortType, limitPerPage);
-  }, [sortType, currentPageNumber, limitPerPage]);
+    getData(currentPage, sortType, limitPerPage);
+  }, [sortType, currentPage, limitPerPage]);
 
   return (
     <>

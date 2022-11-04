@@ -20,7 +20,6 @@ export const useDispatch = () => {
 
 export const useCustomState = () => {
   const value = useContext(StateContext);
-
   if (!value) {
     throw new Error('error');
   }
@@ -30,12 +29,10 @@ export const useCustomState = () => {
 export const itemSelector = (id: number) => (state: IState) => {
   const navigate = useNavigate();
   const item = state.cache.cards.find((item) => item.id === id);
-
   if (!item) {
     navigate('/');
     throw new Error(`No movie with id ${id}`);
   }
-
   return item;
 };
 
@@ -55,7 +52,7 @@ export const formCardSelector = (state: IState) => {
   return cards;
 };
 
-export const pageCurrentSelector = (state: IState) => {
+export const currentSearchPageSelector = (state: IState) => {
   const pageNumber = state.workspace.searchPage.pagination.currentPage;
   if (!pageNumber) {
     throw new Error('didn`t have page number');
@@ -63,7 +60,7 @@ export const pageCurrentSelector = (state: IState) => {
   return pageNumber;
 };
 
-export const pageMainCurrentSelector = (state: IState) => {
+export const currentMainPageSelector = (state: IState) => {
   const pageNumber = state.workspace.mainPage.pagination.currentPage;
   if (!pageNumber) {
     throw new Error('didn`t have page number');
@@ -82,12 +79,12 @@ export const searchQuerySelector = (state: IState) => {
 export const limitPerPageSelector = (state: IState) => {
   const limit = state.workspace.limit;
   if (!limit) {
-    throw new Error('didn`t have search query');
+    throw new Error('didn`t limit per page');
   }
   return limit;
 };
 
-export const sortPageSelector = (state: IState) => {
+export const sortTypeSelector = (state: IState) => {
   const sortBy = state.workspace.mainPage.sortBy;
   if (!sortBy) {
     throw new Error('didn`t have sort type');

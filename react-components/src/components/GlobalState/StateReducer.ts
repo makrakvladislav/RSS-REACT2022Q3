@@ -16,7 +16,7 @@ const stateReducer = (state: IState, action: TAction): IState => {
         workspace: state.workspace,
       };
     }
-    case 'PAGINATION': {
+    case 'PAGINATION_MAIN': {
       state.workspace.mainPage.pagination.currentPage = action.payload.currentPage;
       state.workspace.mainPage.pagination.pagesCount = action.payload.pagesCount;
 

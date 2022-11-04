@@ -6,7 +6,7 @@ export type TAction =
   | ReturnType<typeof addItemAction>
   | ReturnType<typeof fetchDataAction>
   | ReturnType<typeof saveSearchQueryAction>
-  | ReturnType<typeof paginationAction>
+  | ReturnType<typeof paginationMainAction>
   | ReturnType<typeof paginationSearchAction>
   | ReturnType<typeof limitPerPageAction>
   | ReturnType<typeof sortPageAction>
@@ -27,8 +27,8 @@ export const saveSearchQueryAction = (searchQuery: string) => ({
   payload: { searchQuery },
 });
 
-export const paginationAction = (currentPage: number, pagesCount: number) => ({
-  type: 'PAGINATION' as const,
+export const paginationMainAction = (currentPage: number, pagesCount: number) => ({
+  type: 'PAGINATION_MAIN' as const,
   payload: { currentPage, pagesCount },
 });
 

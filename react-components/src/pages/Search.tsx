@@ -4,7 +4,7 @@ import { fetchDataAction, paginationSearchAction } from 'components/GlobalState/
 import {
   cachedItemsSelector,
   limitPerPageSelector,
-  pageCurrentSelector,
+  currentSearchPageSelector,
   searchQuerySelector,
   useCustomState,
   useDispatch,
@@ -21,7 +21,7 @@ const Search = memo(() => {
   const dispatch = useDispatch();
   const state = useCustomState();
   const cachedItems = useSelector(cachedItemsSelector);
-  const currentPageNumber = useSelector(pageCurrentSelector);
+  const currentPage = useSelector(currentSearchPageSelector);
   const searchQuery = useSelector(searchQuerySelector);
   const limitPerPage = useSelector(limitPerPageSelector);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,8 +38,8 @@ const Search = memo(() => {
   };
 
   useEffect(() => {
-    getData(searchQuery, currentPageNumber, limitPerPage);
-  }, [searchQuery, currentPageNumber, limitPerPage]);
+    getData(searchQuery, currentPage, limitPerPage);
+  }, [searchQuery, currentPage, limitPerPage]);
 
   return (
     <>

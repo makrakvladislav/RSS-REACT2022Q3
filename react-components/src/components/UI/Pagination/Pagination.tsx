@@ -1,4 +1,4 @@
-import { paginationAction, paginationSearchAction } from 'components/GlobalState/Actions';
+import { paginationMainAction, paginationSearchAction } from 'components/GlobalState/Actions';
 import { useDispatch } from 'components/GlobalState/StateContext';
 import React, { memo } from 'react';
 import ReactPaginate from 'react-paginate';
@@ -19,7 +19,7 @@ const Pagination = memo((props: IPaginationPros) => {
     }
 
     if (props.pageType === 'main') {
-      dispatch(paginationAction(event.selected + 1, props.pageCount));
+      dispatch(paginationMainAction(event.selected + 1, props.pageCount));
     }
   };
 
