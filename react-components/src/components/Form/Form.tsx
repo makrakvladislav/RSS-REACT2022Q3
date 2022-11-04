@@ -6,14 +6,12 @@ import Toggle from 'components/UI/Toggle/Toggle';
 import Checkbox from 'components/UI/Checkbox/Checkbox';
 import { useForm } from 'react-hook-form';
 import { IFormCard } from './FormCard/FormCard';
-
-interface ChildProps {
-  handleClick: (items: IFormCard) => void;
-}
+import { useDispatch } from 'components/GlobalState/StateContext';
+import { addFormCardAction } from 'components/GlobalState/Actions';
 
 const selectOption = ['Belarus', 'Ukraine', 'United States', 'Poland'];
 
-const Form = memo<ChildProps>(({ handleClick }) => {
+const Form = memo(() => {
   const {
     register,
     handleSubmit,
@@ -21,6 +19,8 @@ const Form = memo<ChildProps>(({ handleClick }) => {
     formState,
     formState: { errors, isValid, isDirty, isSubmitted },
   } = useForm<IFormCard>({ mode: 'onSubmit' });
+
+  const dispatch = useDispatch();
 
   const onSubmit = useCallback(
     (data: IFormCard) => {
@@ -43,9 +43,9 @@ const Form = memo<ChildProps>(({ handleClick }) => {
         subscribe: data.subscribe,
         agree: data.agree,
       };
-      handleClick(item); // todo !
+      dispatch(addFormCardAction(item));
     },
-    [handleClick]
+    [dispatch]
   );
 
   useEffect(() => {
