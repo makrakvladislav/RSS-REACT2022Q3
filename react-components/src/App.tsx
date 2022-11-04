@@ -1,4 +1,4 @@
-import React, { Reducer, useReducer } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import Main from './pages/Main';
@@ -8,6 +8,7 @@ import Forms from './pages/Forms';
 import './App.css';
 import Search from 'pages/Search';
 import { StateProvider } from 'components/GlobalState/StateProvider';
+import Movie from 'pages/Movie';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route path="search" element={<Search />} />
               <Route path="about" element={<About />} />
               <Route path="forms" element={<Forms />} />
+              <Route path="movie/:id" element={<Movie />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
