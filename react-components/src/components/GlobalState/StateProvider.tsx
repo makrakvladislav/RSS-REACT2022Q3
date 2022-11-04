@@ -4,6 +4,7 @@ import { Reducer, useReducer } from 'react';
 import { TAction } from './Actions';
 import { StateContext } from './StateContext';
 import stateReducer from './StateReducer';
+import { IFormCard } from 'components/Form/FormCard/FormCard';
 
 export interface IState {
   cache: {
@@ -11,21 +12,25 @@ export interface IState {
   };
 
   workspace: {
+    limit: number;
     searchPage: {
-      searchQuery: string | null;
-    };
-    mainPage: {
-      sortBy: string | null;
+      searchQuery: string;
       pagination: {
-        pagesCount: number | null;
-        currentPage: number | null;
+        pagesCount: number;
+        currentPage: number;
       };
     };
+    mainPage: {
+      sortBy: string;
+      pagination: {
+        pagesCount: number;
+        currentPage: number;
+      };
+    };
+    formPage: {
+      cards: Array<IFormCard>;
+    };
   };
-
-  /*
-  items: Array<ICard>;
-  */
 }
 
 //cache
@@ -36,15 +41,23 @@ export const initialState: IState = {
     cards: [],
   },
   workspace: {
+    limit: 20,
     searchPage: {
-      searchQuery: null,
+      searchQuery: localStorage!.getItem('searchQuery')! || ' ',
+      pagination: {
+        pagesCount: 1,
+        currentPage: 1,
+      },
     },
     mainPage: {
-      sortBy: null,
+      sortBy: 'popularity',
       pagination: {
-        pagesCount: null,
-        currentPage: null,
+        pagesCount: 1,
+        currentPage: 1,
       },
+    },
+    formPage: {
+      cards: [],
     },
   },
 };
