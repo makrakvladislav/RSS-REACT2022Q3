@@ -1,10 +1,6 @@
 import Data from 'api/api';
 import CardsList from 'components/CardsList/CardsList';
-import {
-  fetchDataAction,
-  paginationSearchAction,
-  saveSearchQueryAction,
-} from 'components/GlobalState/Actions';
+import { fetchDataAction, paginationSearchAction } from 'components/GlobalState/Actions';
 import {
   cachedItemsSelector,
   limitPerPageSelector,
@@ -17,7 +13,7 @@ import {
 import Loader from 'components/UI/Loader/Loader';
 import Modal from 'components/UI/Modal/Modal';
 import SearchError from 'components/UI/SearchError/SearchError';
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import SearchInput from 'components/Search/Search';
 import Pagination from 'components/UI/Pagination/Pagination';
 

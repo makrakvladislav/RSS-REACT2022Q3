@@ -6,8 +6,8 @@ import ModalImage from './ModalImage/ModalImage';
 import ModatlTitle from './ModalTitle/ModatlTitle';
 import ModalContent from './ModalContent/ModalContent';
 import ModalContext from './ModalContext';
-import './Modal.css';
 import { movieById } from 'interface/IMovieById';
+import './Modal.css';
 
 export interface IModalProps {
   movieId: number;
