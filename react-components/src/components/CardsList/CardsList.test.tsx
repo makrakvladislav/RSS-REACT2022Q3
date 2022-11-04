@@ -57,7 +57,7 @@ test('Get Cardslist', async () => {
   };
   mockedAxios.get.mockResolvedValueOnce(mockedResponse);
   expect(axios.get).not.toHaveBeenCalled();
-  const response = await Api.getMovies(1);
+  const response = await Api.getMovies(1, 'popularity');
   expect(axios.get).toHaveBeenCalled();
 
   if (response !== undefined) {

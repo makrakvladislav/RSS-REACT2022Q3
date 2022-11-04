@@ -2,7 +2,7 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Form from './Form';
 import userEvent from '@testing-library/user-event';
-import { voidFn } from 'utils/helpers';
+import { StateProvider } from 'components/GlobalState/StateProvider';
 
 const mockedData = {
   name: 'Jhon',
@@ -17,22 +17,39 @@ const mockedData = {
 
 describe('Form test', () => {
   it('Form renders', () => {
-    render(<Form handleClick={voidFn} />);
+    render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
+
     expect(screen.getByTestId('form')).toBeInTheDocument();
   });
 
   it('Form snapshot', () => {
-    const form = render(<Form handleClick={voidFn} />);
+    const form = render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
     expect(form).toMatchSnapshot();
   });
 
   it('Check submit button disabled', () => {
-    const { getByText } = render(<Form handleClick={voidFn} />);
+    const { getByText } = render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
     expect(getByText('Create Card')).toBeDisabled();
   });
 
   it('Check submit button Enabled', () => {
-    const { getByText } = render(<Form handleClick={voidFn} />);
+    const { getByText } = render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
 
     fireEvent.change(screen.getByTestId('email'), {
       target: { value: 'test.@yandex.ru' },
@@ -41,7 +58,11 @@ describe('Form test', () => {
   });
 
   it('Check input name', () => {
-    render(<Form handleClick={voidFn} />);
+    render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
     const inputName = screen.getByTestId('name');
     expect(inputName).toBeInTheDocument();
     userEvent.type(inputName, mockedData.name);
@@ -49,7 +70,11 @@ describe('Form test', () => {
   });
 
   it('Check input name error', () => {
-    render(<Form handleClick={voidFn} />);
+    render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
     const inputName = screen.getByTestId('name');
     expect(inputName).toBeInTheDocument();
     userEvent.type(inputName, '1');
@@ -58,7 +83,11 @@ describe('Form test', () => {
   });
 
   it('Check input last name', () => {
-    render(<Form handleClick={voidFn} />);
+    render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
     const inputName = screen.getByTestId('last-name');
     expect(inputName).toBeInTheDocument();
     userEvent.type(inputName, mockedData.lastName);
@@ -66,7 +95,11 @@ describe('Form test', () => {
   });
 
   it('Check input last name error', () => {
-    render(<Form handleClick={voidFn} />);
+    render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
     const inputName = screen.getByTestId('last-name');
     expect(inputName).toBeInTheDocument();
     userEvent.type(inputName, '1');
@@ -75,7 +108,11 @@ describe('Form test', () => {
   });
 
   it('Check input Email', () => {
-    render(<Form handleClick={voidFn} />);
+    render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
     const inputBirthday = screen.getByTestId('email');
     expect(inputBirthday).toBeInTheDocument();
     fireEvent.change(inputBirthday, { target: { value: mockedData.birthday } });
@@ -83,7 +120,11 @@ describe('Form test', () => {
   });
 
   it('Check input Email error', () => {
-    render(<Form handleClick={voidFn} />);
+    render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
     const inputBirthday = screen.getByTestId('email');
     expect(inputBirthday).toBeInTheDocument();
     fireEvent.change(inputBirthday, { target: { value: '1' } });
@@ -92,7 +133,11 @@ describe('Form test', () => {
   });
 
   it('Check input avatar', () => {
-    render(<Form handleClick={voidFn} />);
+    render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
     const inputAvatar = screen.getByTestId('avatar') as HTMLInputElement;
     expect(inputAvatar).toBeInTheDocument();
     const file = new File(['logo'], 'logo.png', { type: 'image/png' });
@@ -104,7 +149,11 @@ describe('Form test', () => {
   });
 
   it('Check input avatar error', () => {
-    render(<Form handleClick={voidFn} />);
+    render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
     const inputAvatar = screen.getByTestId('avatar');
     expect(inputAvatar).toBeInTheDocument();
     fireEvent.click(screen.getByText(/Create Card/i));
@@ -112,7 +161,11 @@ describe('Form test', () => {
   });
 
   it('Check select country', async () => {
-    render(<Form handleClick={voidFn} />);
+    render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
     const inputCountry = screen.getByTestId('country');
     expect(inputCountry).toBeInTheDocument();
     expect(await screen.getByRole('option', { name: 'Belarus' })).toBeInTheDocument();
@@ -121,7 +174,11 @@ describe('Form test', () => {
   });
 
   it('Check select country error', () => {
-    render(<Form handleClick={voidFn} />);
+    render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
     const inputCountry = screen.getByTestId('country');
     expect(inputCountry).toBeInTheDocument();
     fireEvent.click(screen.getByText(/Create Card/i));
@@ -129,7 +186,11 @@ describe('Form test', () => {
   });
 
   it('Check agree checkbox', async () => {
-    render(<Form handleClick={voidFn} />);
+    render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
     const inputAgree = screen.getByTestId('agree') as HTMLInputElement;
     expect(inputAgree).toBeInTheDocument();
     fireEvent.click(inputAgree);
@@ -137,7 +198,11 @@ describe('Form test', () => {
   });
 
   it('Check agree checkbox error', () => {
-    render(<Form handleClick={voidFn} />);
+    render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
     const inputAgree = screen.getByTestId('agree') as HTMLInputElement;
     expect(inputAgree).toBeInTheDocument();
     fireEvent.click(inputAgree);
@@ -152,7 +217,11 @@ describe('Form test', () => {
       showCard = true;
       console.log('form submited');
     });
-    render(<Form handleClick={mockedFn} />);
+    render(
+      <StateProvider>
+        <Form />
+      </StateProvider>
+    );
 
     const inputName = screen.getByTestId('name');
     const inputLastName = screen.getByTestId('last-name');
