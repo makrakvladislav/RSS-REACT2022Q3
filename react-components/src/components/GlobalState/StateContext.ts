@@ -27,10 +27,8 @@ export const useCustomState = () => {
 };
 
 export const itemSelector = (id: number) => (state: IState) => {
-  const navigate = useNavigate();
   const item = state.cache.cards.find((item) => item.id === id);
   if (!item) {
-    navigate('/');
     throw new Error(`No movie with id ${id}`);
   }
   return item;
