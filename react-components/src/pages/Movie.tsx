@@ -1,6 +1,6 @@
-import { itemSelector, useSelector } from 'components/GlobalState/StateContext';
+import { useCustomState } from 'components/GlobalState/StateContext';
 import ImagePlaceholder from 'components/UI/ImagePlaceholder/ImagePlaceholder';
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const IconArrow = () => (
@@ -23,34 +23,45 @@ const IconArrow = () => (
 const Movie = memo(() => {
   const navigate = useNavigate();
   const params = useParams();
-  const card = useSelector(itemSelector(+params.id!));
+  const state = useCustomState();
+  const card = state.cache.cards.length
+    ? state.cache.cards.find((item) => item.id === +params.id!)
+    : null;
+
+  useEffect(() => {
+    if (!card) {
+      return navigate('/');
+    }
+  }, [card, navigate]);
 
   return (
     <>
-      <div className="relative p-4 w-full h-full md:h-auto">
-        <div className="relative bg-white rounded-lg shadow">
-          <h1 className="flex justify-between items-center p-5 rounded-t border-b">
-            {card.title}
-            <button
-              onClick={() => navigate(-1)}
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2"
-            >
-              <IconArrow />
-            </button>
-          </h1>
-          <div className="flex row gap-5 p-6">
-            {card.poster_path !== null ? (
-              <img
-                src={`https://image.tmdb.org/t/p/w500/${card.poster_path}`}
-                className="h-full max-h-96 object-contain"
-              />
-            ) : (
-              <ImagePlaceholder />
-            )}
-            <div className="description flex w-2/3 flex-col">{card.overview}</div>
+      {card && (
+        <div className="relative p-4 w-full h-full md:h-auto">
+          <div className="relative bg-white rounded-lg shadow">
+            <h1 className="flex justify-between items-center p-5 rounded-t border-b">
+              {card.title}
+              <button
+                onClick={() => navigate(-1)}
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2"
+              >
+                <IconArrow />
+              </button>
+            </h1>
+            <div className="flex row gap-5 p-6">
+              {card.poster_path !== null ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w500/${card.poster_path}`}
+                  className="h-full max-h-96 object-contain"
+                />
+              ) : (
+                <ImagePlaceholder />
+              )}
+              <div className="description flex w-2/3 flex-col">{card.overview}</div>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 });

@@ -1,7 +1,6 @@
 import React, { Dispatch, useContext } from 'react';
 import { TAction } from './Actions';
 import { IState } from './StateProvider';
-import { useNavigate } from 'react-router-dom';
 
 interface IContext {
   state: IState;
@@ -27,10 +26,8 @@ export const useCustomState = () => {
 };
 
 export const itemSelector = (id: number) => (state: IState) => {
-  const navigate = useNavigate();
   const item = state.cache.cards.find((item) => item.id === id);
   if (!item) {
-    navigate('/');
     throw new Error(`No movie with id ${id}`);
   }
   return item;
