@@ -1,7 +1,7 @@
-import { saveSearchQueryAction } from 'components/GlobalState/Actions';
-import { useDispatch } from 'components/GlobalState/StateContext';
-import { CatalogSelector } from 'components/UI/CatalogSelector/CatalogSelector';
+import LimitSelector from 'components/UI/LimitSelector/LimitSelector';
 import React, { memo, useEffect, useRef, useState } from 'react';
+import { useAppDispatch } from 'store/hooks/redux';
+import { setSearchCurrentPage, setSearchQuery } from 'store/reducers/ActionCreators';
 import { limitOptions } from 'utils/helpers';
 
 import './Search.css';
@@ -25,32 +25,26 @@ const IconSearch = () => (
 );
 
 const Search = memo(() => {
-  const dispatch = useDispatch();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [disabledSearch, setDisabledSearch] = useState(true);
+  const dispatch = useAppDispatch();
+  const [query, saveSearchQuery] = useState('');
   const valueRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    if (e.target.value.length === 0) {
-      setDisabledSearch(true);
-    } else {
-      setDisabledSearch(false);
-    }
+    saveSearchQuery(e.target.value);
   };
 
   const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
-    dispatch(saveSearchQueryAction(searchQuery));
+    dispatch(setSearchQuery(query));
+    dispatch(setSearchCurrentPage(1));
     e.preventDefault();
-    //dispatch(paginationSearchAction(1, 1));
   };
 
   useEffect(() => {
     const value = valueRef!.current;
     const lSValue = localStorage!.getItem('searchQuery');
     if (lSValue) {
-      setDisabledSearch(false);
-      setSearchQuery(lSValue);
+      dispatch(setSearchQuery(lSValue));
+      saveSearchQuery(lSValue);
     }
     return () => {
       if (value!.value !== null) {
@@ -72,7 +66,7 @@ const Search = memo(() => {
               data-testid="search"
               type="search"
               name="search"
-              value={searchQuery}
+              value={query}
               placeholder="Search..."
               onChange={handleChange}
               className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
@@ -80,17 +74,14 @@ const Search = memo(() => {
           </div>
           <button
             type="submit"
-            disabled={disabledSearch}
             className={
-              disabledSearch
-                ? 'bg-blue-400 cursor-not-allowed text-white absolute right-2.5 bottom-2 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1'
-                : 'text-white absolute right-2.5 bottom-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1'
+              'text-white absolute right-2.5 bottom-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1'
             }
           >
             Search
           </button>
         </div>
-        <CatalogSelector type="limit" options={limitOptions} />
+        <LimitSelector page="search" options={limitOptions} />
       </form>
     </>
   );
