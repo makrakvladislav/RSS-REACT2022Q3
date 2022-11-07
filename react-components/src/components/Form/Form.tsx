@@ -6,12 +6,13 @@ import Toggle from 'components/UI/Toggle/Toggle';
 import Checkbox from 'components/UI/Checkbox/Checkbox';
 import { useForm } from 'react-hook-form';
 import { IFormCard } from './FormCard/FormCard';
-import { useDispatch } from 'components/GlobalState/StateContext';
-import { addFormCardAction } from 'components/GlobalState/Actions';
+import { useAppDispatch } from 'store/hooks/redux';
+import { setFormCard } from 'store/reducers/ActionCreators';
 
 const selectOption = ['Belarus', 'Ukraine', 'United States', 'Poland'];
 
 const Form = memo(() => {
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -19,8 +20,6 @@ const Form = memo(() => {
     formState,
     formState: { errors, isValid, isDirty, isSubmitted },
   } = useForm<IFormCard>({ mode: 'onSubmit' });
-
-  const dispatch = useDispatch();
 
   const onSubmit = useCallback(
     (data: IFormCard) => {
@@ -43,7 +42,7 @@ const Form = memo(() => {
         subscribe: data.subscribe,
         agree: data.agree,
       };
-      dispatch(addFormCardAction(item));
+      dispatch(setFormCard(item));
     },
     [dispatch]
   );
