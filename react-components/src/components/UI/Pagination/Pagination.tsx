@@ -1,7 +1,8 @@
-import { paginationMainAction, paginationSearchAction } from 'components/GlobalState/Actions';
-import { useDispatch } from 'components/GlobalState/StateContext';
 import React, { memo } from 'react';
 import ReactPaginate from 'react-paginate';
+import { useAppDispatch } from 'store/hooks/redux';
+import { setCurrentPage, setSearchCurrentPage } from 'store/reducers/ActionCreators';
+
 import './Pagination.css';
 
 interface IPaginationPros {
@@ -11,15 +12,15 @@ interface IPaginationPros {
 }
 
 const Pagination = memo((props: IPaginationPros) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handlePageClick = (event: { selected: number }) => {
     if (props.pageType === 'search') {
-      dispatch(paginationSearchAction(event.selected + 1, props.pageCount));
+      dispatch(setSearchCurrentPage(event.selected + 1));
     }
 
     if (props.pageType === 'main') {
-      dispatch(paginationMainAction(event.selected + 1, props.pageCount));
+      dispatch(setCurrentPage(event.selected + 1));
     }
   };
 
