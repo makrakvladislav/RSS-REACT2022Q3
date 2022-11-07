@@ -4,7 +4,6 @@ import Search from './Search';
 import axios, { AxiosResponse } from 'axios';
 import { ICard } from 'components/Card/Card';
 import Api from '../../api/api';
-import { StateProvider } from 'components/GlobalState/StateProvider';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -83,11 +82,7 @@ describe('Search test', () => {
     });
 
     localStorage.setItem('searchQuery', 'example value');
-    render(
-      <StateProvider>
-        <Search />
-      </StateProvider>
-    );
+    render(<Search />);
     expect(screen.getByRole('searchbox')).toHaveValue('mocked value');
     screen.debug();
   });

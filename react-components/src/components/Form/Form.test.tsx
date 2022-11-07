@@ -2,7 +2,6 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Form from './Form';
 import userEvent from '@testing-library/user-event';
-import { StateProvider } from 'components/GlobalState/StateProvider';
 
 const mockedData = {
   name: 'Jhon',
@@ -17,39 +16,23 @@ const mockedData = {
 
 describe('Form test', () => {
   it('Form renders', () => {
-    render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    render(<Form />);
 
     expect(screen.getByTestId('form')).toBeInTheDocument();
   });
 
   it('Form snapshot', () => {
-    const form = render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    const form = render(<Form />);
     expect(form).toMatchSnapshot();
   });
 
   it('Check submit button disabled', () => {
-    const { getByText } = render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    const { getByText } = render(<Form />);
     expect(getByText('Create Card')).toBeDisabled();
   });
 
   it('Check submit button Enabled', () => {
-    const { getByText } = render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    const { getByText } = render(<Form />);
 
     fireEvent.change(screen.getByTestId('email'), {
       target: { value: 'test.@yandex.ru' },
@@ -58,11 +41,7 @@ describe('Form test', () => {
   });
 
   it('Check input name', () => {
-    render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    render(<Form />);
     const inputName = screen.getByTestId('name');
     expect(inputName).toBeInTheDocument();
     userEvent.type(inputName, mockedData.name);
@@ -70,11 +49,7 @@ describe('Form test', () => {
   });
 
   it('Check input name error', () => {
-    render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    render(<Form />);
     const inputName = screen.getByTestId('name');
     expect(inputName).toBeInTheDocument();
     userEvent.type(inputName, '1');
@@ -83,11 +58,7 @@ describe('Form test', () => {
   });
 
   it('Check input last name', () => {
-    render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    render(<Form />);
     const inputName = screen.getByTestId('last-name');
     expect(inputName).toBeInTheDocument();
     userEvent.type(inputName, mockedData.lastName);
@@ -95,11 +66,7 @@ describe('Form test', () => {
   });
 
   it('Check input last name error', () => {
-    render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    render(<Form />);
     const inputName = screen.getByTestId('last-name');
     expect(inputName).toBeInTheDocument();
     userEvent.type(inputName, '1');
@@ -108,11 +75,7 @@ describe('Form test', () => {
   });
 
   it('Check input Email', () => {
-    render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    render(<Form />);
     const inputBirthday = screen.getByTestId('email');
     expect(inputBirthday).toBeInTheDocument();
     fireEvent.change(inputBirthday, { target: { value: mockedData.birthday } });
@@ -120,11 +83,7 @@ describe('Form test', () => {
   });
 
   it('Check input Email error', () => {
-    render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    render(<Form />);
     const inputBirthday = screen.getByTestId('email');
     expect(inputBirthday).toBeInTheDocument();
     fireEvent.change(inputBirthday, { target: { value: '1' } });
@@ -133,11 +92,7 @@ describe('Form test', () => {
   });
 
   it('Check input avatar', () => {
-    render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    render(<Form />);
     const inputAvatar = screen.getByTestId('avatar') as HTMLInputElement;
     expect(inputAvatar).toBeInTheDocument();
     const file = new File(['logo'], 'logo.png', { type: 'image/png' });
@@ -149,11 +104,7 @@ describe('Form test', () => {
   });
 
   it('Check input avatar error', () => {
-    render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    render(<Form />);
     const inputAvatar = screen.getByTestId('avatar');
     expect(inputAvatar).toBeInTheDocument();
     fireEvent.click(screen.getByText(/Create Card/i));
@@ -161,11 +112,7 @@ describe('Form test', () => {
   });
 
   it('Check select country', async () => {
-    render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    render(<Form />);
     const inputCountry = screen.getByTestId('country');
     expect(inputCountry).toBeInTheDocument();
     expect(await screen.getByRole('option', { name: 'Belarus' })).toBeInTheDocument();
@@ -174,11 +121,7 @@ describe('Form test', () => {
   });
 
   it('Check select country error', () => {
-    render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    render(<Form />);
     const inputCountry = screen.getByTestId('country');
     expect(inputCountry).toBeInTheDocument();
     fireEvent.click(screen.getByText(/Create Card/i));
@@ -186,11 +129,7 @@ describe('Form test', () => {
   });
 
   it('Check agree checkbox', async () => {
-    render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    render(<Form />);
     const inputAgree = screen.getByTestId('agree') as HTMLInputElement;
     expect(inputAgree).toBeInTheDocument();
     fireEvent.click(inputAgree);
@@ -198,11 +137,7 @@ describe('Form test', () => {
   });
 
   it('Check agree checkbox error', () => {
-    render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    render(<Form />);
     const inputAgree = screen.getByTestId('agree') as HTMLInputElement;
     expect(inputAgree).toBeInTheDocument();
     fireEvent.click(inputAgree);
@@ -217,11 +152,7 @@ describe('Form test', () => {
       showCard = true;
       console.log('form submited');
     });
-    render(
-      <StateProvider>
-        <Form />
-      </StateProvider>
-    );
+    render(<Form />);
 
     const inputName = screen.getByTestId('name');
     const inputLastName = screen.getByTestId('last-name');
