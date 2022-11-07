@@ -1,7 +1,7 @@
-import { useCustomState } from 'components/GlobalState/StateContext';
-import ImagePlaceholder from 'components/UI/ImagePlaceholder/ImagePlaceholder';
 import React, { memo, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useAppselector } from 'store/hooks/redux';
+import ImagePlaceholder from 'components/UI/ImagePlaceholder/ImagePlaceholder';
 
 const IconArrow = () => (
   <svg
@@ -23,10 +23,9 @@ const IconArrow = () => (
 const Movie = memo(() => {
   const navigate = useNavigate();
   const params = useParams();
-  const state = useCustomState();
-  const card = state.cache.cards.length
-    ? state.cache.cards.find((item) => item.id === +params.id!)
-    : null;
+  const state = useAppselector((state) => state);
+  const cache = state.movieReducer.cards.concat(state.searchMovieReducer.cards);
+  const card = cache.length ? cache.find((item) => item.id === +params.id!) : null;
 
   useEffect(() => {
     if (!card) {
