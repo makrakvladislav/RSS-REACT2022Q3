@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { useAppDispatch, useAppselector } from 'store/hooks/redux';
-import { setLimitPage, setLimitSearchPage, setSortType } from 'store/reducers/ActionCreators';
+import { setLimitPage, setLimitSearchPage } from 'store/reducers/ActionCreators';
 
 interface IProps {
   page: string;
