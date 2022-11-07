@@ -7,14 +7,16 @@ import About from './pages/About';
 import Forms from './pages/Forms';
 import './App.css';
 import Search from 'pages/Search';
-import { StateProvider } from 'components/GlobalState/StateProvider';
 import Movie from 'pages/Movie';
+import { Provider } from 'react-redux';
+import { setupStore } from 'store/store';
 
 function App() {
+  const store = setupStore();
   return (
     <div className="App">
       <div className="container mx-auto px-4 flex flex-col min-h-screen">
-        <StateProvider>
+        <Provider store={store}>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Main />} />
@@ -25,7 +27,7 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
-        </StateProvider>
+        </Provider>
       </div>
     </div>
   );
