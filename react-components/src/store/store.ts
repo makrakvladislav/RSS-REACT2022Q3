@@ -2,10 +2,10 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import movieReducer from './reducers/movieSlice';
 import searchMovieReducer from './reducers/searchMovieSlice';
 import formReducer from './reducers/formSlice';
-//import cacheReducer from './reducers/cacheSlice';
+import cacheReducer from './reducers/cacheSlice';
 
 const rootReducer = combineReducers({
-  //cacheReducer,
+  cacheReducer,
   formReducer,
   movieReducer,
   searchMovieReducer,

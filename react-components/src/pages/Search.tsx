@@ -15,11 +15,13 @@ const Search = memo(() => {
   );
   const [visibleModalId, setVisibleModalId] = useState<number | null>(null); // modalId === movieId
 
+  const { cache } = useAppselector((state) => state.cacheReducer);
+
   useEffect(() => {
-    console.log(totalPages);
     if (searchQuery) {
       dispatch(searchMovies({ currentPage, searchQuery, limit }));
     }
+    console.log(cache);
   }, [currentPage, searchQuery, limit]);
 
   return (

@@ -6,8 +6,8 @@ import { formSlice } from './formSlice';
 import { movieSlice } from './movieSlice';
 import { searchMovieSlice } from './searchMovieSlice';
 
-//import { cacheSlice } from './cacheSlice';
-//import { ICard } from 'components/Card/Card';
+import { cacheSlice } from './cacheSlice';
+import { ICard } from 'components/Card/Card';
 
 export const fetchMovies = createAsyncThunk(
   'movies/FetchAll',
@@ -49,11 +49,9 @@ export const searchMovies = createAsyncThunk(
   }
 );
 
-/*
 export const addCache = (data: Array<ICard>) => (dispatch: AppDispatch) => {
   dispatch(cacheSlice.actions.addCache(data));
 };
-*/
 
 export const setCurrentPage = (page: number) => (dispatch: AppDispatch) => {
   dispatch(movieSlice.actions.setCurrentPage(page));

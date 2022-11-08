@@ -6,7 +6,7 @@ import Modal from 'components/UI/Modal/Modal';
 import Pagination from 'components/UI/Pagination/Pagination';
 import { limitOptions, sortOptions } from 'utils/helpers';
 import { useAppDispatch, useAppselector } from 'store/hooks/redux';
-import { fetchMovies } from 'store/reducers/ActionCreators';
+import { addCache, fetchMovies } from 'store/reducers/ActionCreators';
 import LimitSelector from 'components/UI/LimitSelector/LimitSelector';
 import SortSelector from 'components/UI/SortSelector/SortSelector';
 
@@ -16,10 +16,12 @@ const Main = memo(() => {
     (state) => state.movieReducer
   );
   const [visibleModalId, setVisibleModalId] = useState<number | null>(null); // modalId === movieId
+  const { cache, isCached } = useAppselector((state) => state.cacheReducer);
 
   useEffect(() => {
     dispatch(fetchMovies({ currentPage, sortType }));
-  }, [sortType, currentPage, limit]);
+    console.log(cache);
+  }, [sortType, currentPage, limit, isCached]);
 
   return (
     <>
