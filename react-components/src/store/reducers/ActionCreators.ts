@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { IFormCard } from 'components/Form/FormCard/FormCard';
 import { AppDispatch } from 'store/store';
 import { formSlice } from './formSlice';
@@ -80,3 +80,8 @@ export const setSearchQuery = (query: string) => (dispatch: AppDispatch) => {
 export const setFormCard = (data: IFormCard) => (dispatch: AppDispatch) => {
   dispatch(formSlice.actions.addCards([data]));
 };
+
+export const abcAction = (data: AxiosResponse) => ({
+  type: 'abc',
+  payload: { data },
+});

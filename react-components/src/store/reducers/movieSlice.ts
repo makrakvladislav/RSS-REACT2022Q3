@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ICard } from 'components/Card/Card';
 import { fetchMovies } from './ActionCreators';
 
-interface IState {
+export interface IMovieSliceState {
   cards: Array<ICard>;
   currentPage: number;
   totalPages: number;
@@ -12,7 +12,7 @@ interface IState {
   error: string;
 }
 
-const initialState: IState = {
+const initialState: IMovieSliceState = {
   cards: [],
   currentPage: 1,
   totalPages: 1,
