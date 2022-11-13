@@ -23,34 +23,28 @@ const initialState: IMovieSliceState = {
 };
 
 export const movieSlice = createSlice({
-  name: 'Movie',
+  name: 'movie',
   initialState,
   reducers: {
+    setMovies(state, action: PayloadAction<Array<ICard>>) {
+      state.cards = action.payload;
+    },
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
       console.log(state.currentPage);
     },
+    changePage(state, action: PayloadAction<number>) {
+      state.currentPage = action.payload;
+      console.log(state.currentPage);
+    },
     setLimit(state, action: PayloadAction<number>) {
+      state.currentPage = 1;
       state.limit = action.payload;
     },
     setSortType(state, action: PayloadAction<string>) {
+      state.currentPage = 1;
       state.sortType = action.payload;
     },
-
-    /*
-    moviesFetching(state) {
-      state.isLoading = true;
-    },
-    moviesFetchingSuccess(state, action: PayloadAction<Array<ICard>>) {
-      state.isLoading = false;
-      state.error = '';
-      state.cards = action.payload;
-    },
-    moviesFetchingError(state, action: PayloadAction<string>) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    */
   },
 
   extraReducers: (builder) => {
@@ -58,6 +52,7 @@ export const movieSlice = createSlice({
       state.isLoading = false;
       state.error = '';
       state.cards = action.payload.slice(0, state.limit);
+      //movieSlice.caseReducers.setMovies(state, action);
     });
     builder.addCase(fetchMovies.pending, (state) => {
       state.isLoading = true;
@@ -69,19 +64,16 @@ export const movieSlice = createSlice({
   },
 
   /*
-  extraReducers: {
-    [fetchMovies.fulfilled.type]: (state, action: PayloadAction<Array<ICard>>) => {
+  extraReducers: (builder) => {
+    builder.addCase('app/firstLoad', (state, action) => {
+      console.log('[projectSlice]:', action);
+    });
+    builder.addCase(fetchMovies.fulfilled, (state, action) => {
       state.isLoading = false;
       state.error = '';
-      state.cards = action.payload;
-    },
-    [fetchMovies.pending.type]: (state) => {
-      state.isLoading = true;
-    },
-    [fetchMovies.rejected.type]: (state, action: PayloadAction<string>) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+      state.cards = action.payload.slice(0, state.limit);
+      //movieSlice.caseReducers.setMovies(state, action);
+    });
   },
   */
 });

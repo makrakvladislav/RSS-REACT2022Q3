@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AxiosResponse } from 'axios';
 import { ICard } from 'components/Card/Card';
 import { searchMovies } from './ActionCreators';
 
@@ -12,9 +13,11 @@ interface IState {
   error: string;
 }
 
+const lSValue = localStorage!.getItem('searchQuery');
+
 const initialState: IState = {
   cards: [],
-  searchQuery: '',
+  searchQuery: lSValue || 'matrix',
   currentPage: 1,
   totalPages: 1,
   limit: 20,
@@ -23,10 +26,18 @@ const initialState: IState = {
 };
 
 export const searchMovieSlice = createSlice({
-  name: 'Movie Search',
+  name: 'search',
   initialState,
   reducers: {
+    setMovies(state, action: PayloadAction<AxiosResponse>) {
+      state.cards = action.payload.data;
+      console.log(state.cards);
+    },
     setCurrentPage(state, action: PayloadAction<number>) {
+      state.currentPage = action.payload;
+      console.log(state.currentPage);
+    },
+    changeSearchPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
       console.log(state.currentPage);
     },
@@ -35,22 +46,9 @@ export const searchMovieSlice = createSlice({
       console.log(state.searchQuery);
     },
     setLimit(state, action: PayloadAction<number>) {
+      state.currentPage = 1;
       state.limit = action.payload;
     },
-    /*
-    moviesFetching(state) {
-      state.isLoading = true;
-    },
-    moviesFetchingSuccess(state, action: PayloadAction<Array<ICard>>) {
-      state.isLoading = false;
-      state.error = '';
-      state.cards = action.payload;
-    },
-    moviesFetchingError(state, action: PayloadAction<string>) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    */
   },
 
   extraReducers: (builder) => {
@@ -58,7 +56,6 @@ export const searchMovieSlice = createSlice({
       state.isLoading = false;
       state.error = '';
       state.totalPages = action.payload.total_pages;
-      console.log(state.limit);
       state.cards = action.payload.results.slice(0, state.limit);
     });
     builder.addCase(searchMovies.pending, (state) => {
