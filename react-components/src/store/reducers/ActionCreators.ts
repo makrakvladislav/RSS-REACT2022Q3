@@ -8,6 +8,7 @@ import { searchMovieSlice } from './searchMovieSlice';
 
 import { cacheSlice } from './cacheSlice';
 import { ICard } from 'components/Card/Card';
+import { matchPath } from 'react-router-dom';
 
 export const fetchMovies = createAsyncThunk(
   'movies/FetchAll',
@@ -29,10 +30,7 @@ export const fetchMovies = createAsyncThunk(
 
 export const searchMovies = createAsyncThunk(
   'movies/Seach',
-  async (
-    { currentPage, searchQuery }: { currentPage: number; searchQuery: string; limit: number },
-    thunkAPI
-  ) => {
+  async ({ currentPage, searchQuery }: { currentPage: number; searchQuery: string }, thunkAPI) => {
     console.log('search fetch');
     try {
       const response = await axios.get('https://api.themoviedb.org/3/search/movie?', {
@@ -49,16 +47,35 @@ export const searchMovies = createAsyncThunk(
   }
 );
 
+/*
 export const addCache = (data: Array<ICard>) => (dispatch: AppDispatch) => {
-  dispatch(cacheSlice.actions.addCache(data));
+  console.log(data);
+  dispatch(appSlice.actions.addCache(data));
 };
+*/
 
+/*
 export const setCurrentPage = (page: number) => (dispatch: AppDispatch) => {
+  dispatch(movieSlice.actions.setCurrentPage(page));
+};
+*/
+
+export const firstLoad = () => ({
+  type: 'app/firstLoad',
+});
+
+export const changeMainPage = (page: number) => (dispatch: AppDispatch) => {
+  dispatch(movieSlice.actions.changePage(page));
   dispatch(movieSlice.actions.setCurrentPage(page));
 };
 
 export const setSearchCurrentPage = (page: number) => (dispatch: AppDispatch) => {
   dispatch(searchMovieSlice.actions.setCurrentPage(page));
+};
+
+export const changeSearchPage = (page: number) => (dispatch: AppDispatch) => {
+  dispatch(searchMovieSlice.actions.changeSearchPage(page));
+  dispatch(setSearchCurrentPage(page));
 };
 
 export const setLimitPage = (limit: number) => (dispatch: AppDispatch) => {
@@ -80,8 +97,3 @@ export const setSearchQuery = (query: string) => (dispatch: AppDispatch) => {
 export const setFormCard = (data: IFormCard) => (dispatch: AppDispatch) => {
   dispatch(formSlice.actions.addCards([data]));
 };
-
-export const abcAction = (data: AxiosResponse) => ({
-  type: 'abc',
-  payload: { data },
-});
