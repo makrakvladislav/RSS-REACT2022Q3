@@ -1,27 +1,18 @@
 import CardsList from '../components/CardsList/CardsList';
 import Loader from '../components/UI/Loader/Loader';
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useState } from 'react';
 import SearchError from 'components/UI/SearchError/SearchError';
 import Modal from 'components/UI/Modal/Modal';
 import Pagination from 'components/UI/Pagination/Pagination';
 import { limitOptions, sortOptions } from 'utils/helpers';
-import { useAppDispatch, useAppselector } from 'store/hooks/redux';
+import { useAppselector } from 'store/hooks/redux';
 import LimitSelector from 'components/UI/LimitSelector/LimitSelector';
 import SortSelector from 'components/UI/SortSelector/SortSelector';
 
 const Main = memo(() => {
-  const { cards, isLoading, currentPage, error } = useAppselector((state) => state.movieReducer);
+  const { cards, isLoading, currentPage, error } = useAppselector((state) => state.mainPageState);
   const [visibleModalId, setVisibleModalId] = useState<number | null>(null); // modalId === movieId
-  /*
-    const dispatch = useAppDispatch();
- 
-  const { cache, isCached } = useAppselector((state) => state.cacheReducer);
-*/
-  /*
-  useEffect(() => {
-    dispatch(fetchMovies({ currentPage, sortType }));
-  }, [sortType, currentPage, limit, isCached]);
-  */
+
   return (
     <>
       <h1>Main</h1>

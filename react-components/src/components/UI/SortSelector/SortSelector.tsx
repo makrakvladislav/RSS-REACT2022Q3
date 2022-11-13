@@ -8,7 +8,7 @@ interface IProps {
 
 export const SortSelector = memo((props: IProps) => {
   const dispatch = useAppDispatch();
-  const { sortType } = useAppselector((state) => state.movieReducer);
+  const { sortType } = useAppselector((state) => state.mainPageState);
 
   const handleQuantitySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setSortType(e.target.value));

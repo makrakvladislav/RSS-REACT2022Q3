@@ -1,14 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { IFormCard } from 'components/Form/FormCard/FormCard';
 import { AppDispatch } from 'store/store';
 import { formSlice } from './formSlice';
 import { movieSlice } from './movieSlice';
 import { searchMovieSlice } from './searchMovieSlice';
-
-import { cacheSlice } from './cacheSlice';
-import { ICard } from 'components/Card/Card';
-import { matchPath } from 'react-router-dom';
 
 export const fetchMovies = createAsyncThunk(
   'movies/FetchAll',
@@ -31,7 +27,6 @@ export const fetchMovies = createAsyncThunk(
 export const searchMovies = createAsyncThunk(
   'movies/Seach',
   async ({ currentPage, searchQuery }: { currentPage: number; searchQuery: string }, thunkAPI) => {
-    console.log('search fetch');
     try {
       const response = await axios.get('https://api.themoviedb.org/3/search/movie?', {
         params: {
@@ -46,19 +41,6 @@ export const searchMovies = createAsyncThunk(
     }
   }
 );
-
-/*
-export const addCache = (data: Array<ICard>) => (dispatch: AppDispatch) => {
-  console.log(data);
-  dispatch(appSlice.actions.addCache(data));
-};
-*/
-
-/*
-export const setCurrentPage = (page: number) => (dispatch: AppDispatch) => {
-  dispatch(movieSlice.actions.setCurrentPage(page));
-};
-*/
 
 export const firstLoad = () => ({
   type: 'app/firstLoad',

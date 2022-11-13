@@ -6,8 +6,8 @@ export const thunkMainPageMiddleware: ThunkMiddleware =
   (next) =>
   (action) => {
     const state = getState();
-    const currentPage = state.movieReducer.currentPage;
-    const sortType = state.movieReducer.sortType;
+    const currentPage = state.mainPageState.currentPage;
+    const sortType = state.mainPageState.sortType;
 
     if (action.type === 'app/firstLoad') {
       dispatch(fetchMovies({ currentPage, sortType }));

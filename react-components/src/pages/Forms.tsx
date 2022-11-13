@@ -4,7 +4,7 @@ import React, { memo } from 'react';
 import { useAppselector } from 'store/hooks/redux';
 
 const Forms = memo(() => {
-  const { cards } = useAppselector((state) => state.formReducer);
+  const { cards } = useAppselector((state) => state.formPageState);
 
   return (
     <>

@@ -31,11 +31,9 @@ export const movieSlice = createSlice({
     },
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
-      console.log(state.currentPage);
     },
     changePage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
-      console.log(state.currentPage);
     },
     setLimit(state, action: PayloadAction<number>) {
       state.currentPage = 1;

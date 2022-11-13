@@ -1,5 +1,5 @@
 import LimitSelector from 'components/UI/LimitSelector/LimitSelector';
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useAppDispatch, useAppselector } from 'store/hooks/redux';
 import { setSearchCurrentPage, setSearchQuery } from 'store/reducers/ActionCreators';
 import { limitOptions } from 'utils/helpers';
@@ -26,9 +26,8 @@ const IconSearch = () => (
 
 const Search = memo(() => {
   const dispatch = useAppDispatch();
-  const { searchQuery } = useAppselector((state) => state.searchMovieReducer);
+  const { searchQuery } = useAppselector((state) => state.searchPageState);
   const [query, setQuery] = useState('');
-  const valueRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -37,25 +36,9 @@ const Search = memo(() => {
   const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     dispatch(setSearchQuery(query));
     dispatch(setSearchCurrentPage(1));
-    localStorage!.setItem('searchQuery', query);
+    localStorage.setItem('searchQuery', query);
     e.preventDefault();
   };
-
-  /*
-  useEffect(() => {
-    const value = valueRef!.current;
-    const lSValue = localStorage!.getItem('searchQuery');
-    if (lSValue) {
-      dispatch(setSearchQuery(lSValue));
-      saveSearchQuery(lSValue);
-    }
-    return () => {
-      if (value!.value !== null) {
-        localStorage!.setItem('searchQuery', `${value!.value}`);
-      }
-    };
-  }, []);
-  */
 
   return (
     <>
@@ -66,7 +49,6 @@ const Search = memo(() => {
           </div>
           <div className="flex items-center">
             <input
-              ref={valueRef}
               data-testid="search"
               type="search"
               name="search"

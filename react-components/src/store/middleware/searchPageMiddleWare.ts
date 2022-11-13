@@ -6,8 +6,8 @@ export const thunkSearchPageMiddleware: ThunkMiddleware =
   (next) =>
   (action) => {
     const state = getState();
-    const currentPage = state.searchMovieReducer.currentPage;
-    const searchQuery = state.searchMovieReducer.searchQuery;
+    const currentPage = state.searchPageState.currentPage;
+    const searchQuery = state.searchPageState.searchQuery;
 
     if (action.type === 'app/firstLoad') {
       dispatch(searchMovies({ currentPage, searchQuery }));

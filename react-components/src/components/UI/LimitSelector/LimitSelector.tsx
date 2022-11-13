@@ -9,8 +9,8 @@ interface IProps {
 
 export const LimitSelector = memo((props: IProps) => {
   const dispatch = useAppDispatch();
-  const stateSearchPage = useAppselector((state) => state.searchMovieReducer);
-  const stateMainPage = useAppselector((state) => state.movieReducer);
+  const stateSearchPage = useAppselector((state) => state.searchPageState);
+  const stateMainPage = useAppselector((state) => state.mainPageState);
 
   const handleQuantitySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (props.page === 'search') {

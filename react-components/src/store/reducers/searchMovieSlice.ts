@@ -31,19 +31,15 @@ export const searchMovieSlice = createSlice({
   reducers: {
     setMovies(state, action: PayloadAction<AxiosResponse>) {
       state.cards = action.payload.data;
-      console.log(state.cards);
     },
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
-      console.log(state.currentPage);
     },
     changeSearchPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
-      console.log(state.currentPage);
     },
     setSearchQuery(state, action: PayloadAction<string>) {
       state.searchQuery = action.payload;
-      console.log(state.searchQuery);
     },
     setLimit(state, action: PayloadAction<number>) {
       state.currentPage = 1;

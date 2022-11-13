@@ -9,7 +9,7 @@ import { useAppselector } from 'store/hooks/redux';
 
 const Search = memo(() => {
   const { cards, isLoading, currentPage, totalPages, error } = useAppselector(
-    (state) => state.searchMovieReducer
+    (state) => state.searchPageState
   );
   const [visibleModalId, setVisibleModalId] = useState<number | null>(null); // modalId === movieId
 
