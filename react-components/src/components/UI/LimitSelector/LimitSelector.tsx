@@ -9,8 +9,16 @@ interface IProps {
 
 export const LimitSelector = memo((props: IProps) => {
   const dispatch = useAppDispatch();
-  const stateSearchPage = useAppselector((state) => state.searchPageState);
-  const stateMainPage = useAppselector((state) => state.mainPageState);
+  const limitSearchPage = useAppselector((state) => state.searchPageState.limit);
+  const limitMainPage = useAppselector((state) => state.mainPageState.limit);
+  let limit;
+
+  if (props.page === 'search') {
+    limit = limitSearchPage;
+  }
+  if (props.page === 'main') {
+    limit = limitMainPage;
+  }
 
   const handleQuantitySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (props.page === 'search') {
@@ -21,19 +29,10 @@ export const LimitSelector = memo((props: IProps) => {
 
   return (
     <select
+      defaultValue={limit}
       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
       onChange={handleQuantitySelect}
     >
-      {props.page === 'main' ? (
-        <option defaultValue={stateMainPage.limit} value="">
-          {stateMainPage.limit}
-        </option>
-      ) : (
-        <option defaultValue={stateSearchPage.limit} value="">
-          {stateSearchPage.limit}
-        </option>
-      )}
-
       {props.options.map((item: string, key: number) => {
         return (
           <option key={key} value={item}>
