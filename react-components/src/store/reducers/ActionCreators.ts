@@ -12,7 +12,7 @@ export const fetchMovies = createAsyncThunk(
     try {
       const response = await axios.get('https://api.themoviedb.org/3/discover/movie?', {
         params: {
-          api_key: '1939abe3d00976407f86acd63c341f94',
+          api_key: process.env.REACT_APP_API_KEY,
           page: currentPage,
           sort_by: sortType + '.desc',
         },
@@ -30,7 +30,7 @@ export const searchMovies = createAsyncThunk(
     try {
       const response = await axios.get('https://api.themoviedb.org/3/search/movie?', {
         params: {
-          api_key: '1939abe3d00976407f86acd63c341f94',
+          api_key: process.env.REACT_APP_API_KEY,
           page: currentPage,
           query: searchQuery,
         },

@@ -6,7 +6,7 @@ export default class Data {
     return await axios
       .get('https://api.themoviedb.org/3/discover/movie?', {
         params: {
-          api_key: '1939abe3d00976407f86acd63c341f94',
+          api_key: process.env.REACT_APP_API_KEY,
           page: page,
           sort_by: sortBy + '.desc',
         },
@@ -23,7 +23,7 @@ export default class Data {
     return await axios
       .get('https://api.themoviedb.org/3/search/movie?', {
         params: {
-          api_key: '1939abe3d00976407f86acd63c341f94',
+          api_key: process.env.REACT_APP_API_KEY,
           page: page,
           query: query,
         },
@@ -40,7 +40,7 @@ export default class Data {
     return await axios
       .get(`https://api.themoviedb.org/3/movie/${id}`, {
         params: {
-          api_key: '1939abe3d00976407f86acd63c341f94',
+          api_key: process.env.REACT_APP_API_KEY,
         },
       })
       .then((response) => {
