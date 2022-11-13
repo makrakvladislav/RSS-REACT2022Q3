@@ -23,10 +23,8 @@ const IconArrow = () => (
 const Movie = memo(() => {
   const navigate = useNavigate();
   const params = useParams();
-  const state = useAppselector((state) => state);
-  const { cache } = useAppselector((state) => state.cacheReducer);
-  //const cache = state.movieReducer.cards.concat(state.searchMovieReducer.cards);
-  const card = cache.length ? cache.find((item) => item.id === +params.id!) : null;
+  const { cards } = useAppselector((state) => state.cache);
+  const card = cards.length ? cards.find((item) => item.id === +params.id!) : null;
 
   useEffect(() => {
     if (!card) {
