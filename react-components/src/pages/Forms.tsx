@@ -1,12 +1,10 @@
 import Form from 'components/Form/Form';
 import FormCardsList from 'components/Form/FormCardsList/FormCardsList';
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import { useAppselector } from 'store/hooks/redux';
 
 const Forms = memo(() => {
   const { cards } = useAppselector((state) => state.formReducer);
-
-  useEffect(() => {}, [cards]);
 
   return (
     <>

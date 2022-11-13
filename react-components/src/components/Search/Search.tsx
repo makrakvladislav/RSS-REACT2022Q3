@@ -1,6 +1,6 @@
 import LimitSelector from 'components/UI/LimitSelector/LimitSelector';
 import React, { memo, useEffect, useRef, useState } from 'react';
-import { useAppDispatch } from 'store/hooks/redux';
+import { useAppDispatch, useAppselector } from 'store/hooks/redux';
 import { setSearchCurrentPage, setSearchQuery } from 'store/reducers/ActionCreators';
 import { limitOptions } from 'utils/helpers';
 
@@ -26,19 +26,22 @@ const IconSearch = () => (
 
 const Search = memo(() => {
   const dispatch = useAppDispatch();
-  const [query, saveSearchQuery] = useState('');
+  const { searchQuery } = useAppselector((state) => state.searchMovieReducer);
+  const [query, setQuery] = useState('');
   const valueRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    saveSearchQuery(e.target.value);
+    setQuery(e.target.value);
   };
 
   const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     dispatch(setSearchQuery(query));
     dispatch(setSearchCurrentPage(1));
+    localStorage!.setItem('searchQuery', query);
     e.preventDefault();
   };
 
+  /*
   useEffect(() => {
     const value = valueRef!.current;
     const lSValue = localStorage!.getItem('searchQuery');
@@ -52,6 +55,7 @@ const Search = memo(() => {
       }
     };
   }, []);
+  */
 
   return (
     <>
@@ -66,7 +70,7 @@ const Search = memo(() => {
               data-testid="search"
               type="search"
               name="search"
-              value={query}
+              defaultValue={searchQuery}
               placeholder="Search..."
               onChange={handleChange}
               className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
