@@ -13,12 +13,13 @@ import { Route } from 'react-router';
 import { ReduxRouter } from '@lagunovsky/redux-react-router';
 import { createBrowserHistory } from 'history';
 import { Routes } from 'react-router-dom';
+import { firstLoad } from 'store/reducers/ActionCreators';
 
 const history = createBrowserHistory();
 
 function App() {
   const store = setupStore(history);
-
+  store.dispatch(firstLoad());
   return (
     <div className="App">
       <div className="container mx-auto px-4 flex flex-col min-h-screen">
