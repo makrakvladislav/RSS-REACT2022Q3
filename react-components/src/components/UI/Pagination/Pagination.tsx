@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useAppDispatch } from 'store/hooks/redux';
-import { setCurrentPage, setSearchCurrentPage } from 'store/reducers/ActionCreators';
+import { changeMainPage, changeSearchPage } from 'store/reducers/ActionCreators';
 
 import './Pagination.css';
 
@@ -16,11 +16,11 @@ const Pagination = memo((props: IPaginationPros) => {
 
   const handlePageClick = (event: { selected: number }) => {
     if (props.pageType === 'search') {
-      dispatch(setSearchCurrentPage(event.selected + 1));
+      dispatch(changeSearchPage(event.selected + 1));
     }
 
     if (props.pageType === 'main') {
-      dispatch(setCurrentPage(event.selected + 1));
+      dispatch(changeMainPage(event.selected + 1));
     }
   };
 
