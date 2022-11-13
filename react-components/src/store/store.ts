@@ -1,43 +1,41 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  combineReducers,
-  configureStore,
-  applyMiddleware,
-  createAsyncThunk,
-  Middleware,
-} from '@reduxjs/toolkit';
-import movieReducer, { IMovieSliceState } from './reducers/movieSlice';
+import { combineReducers, configureStore, Middleware } from '@reduxjs/toolkit';
+import movieReducer from './reducers/movieSlice';
 import searchMovieReducer from './reducers/searchMovieSlice';
 import formReducer from './reducers/formSlice';
-import cacheReducer from './reducers/cacheSlice';
+import cache from './reducers/cacheSlice';
 import {
   createRouterMiddleware,
   createRouterReducerMapObject,
-  LocationChangeAction,
-  ROUTER_ON_LOCATION_CHANGED,
   // routerReducer,
 } from '@lagunovsky/redux-react-router';
 import { History } from 'history';
-import axios from 'axios';
-import { abcAction } from './reducers/ActionCreators';
-import { matchPath } from 'react-router-dom';
+import { thunkMainPageMiddleware } from './middleware/mainPageMiddleware';
+import { thunkSearchPageMiddleware } from './middleware/searchPageMiddleWare';
 
 const createRootReducer = (history: History) =>
   combineReducers({
-    cacheReducer,
+    cache,
     formReducer,
     movieReducer,
     searchMovieReducer,
-    custom: (state, action) => {
+    /*
+    appState: (state, action) => {
+    
       if (!state) {
-        return {};
+        return {
+          cache: [],
+        };
       }
+     
       if (action.type === ROUTER_ON_LOCATION_CHANGED) {
         console.log('custom state', state);
         console.log('custom action', action);
       }
+     
       return state;
     },
+ */
     ...createRouterReducerMapObject(history),
   });
 
@@ -45,23 +43,23 @@ export const routerMiddleware: Middleware =
   ({ getState, dispatch }) =>
   (next) =>
   async (action) => {
-    if (action.type === ROUTER_ON_LOCATION_CHANGED) {
-      const state = getState();
-      console.log('routerMiddleware', state);
-
+    const state = getState();
+    /*
+    if (action.type === 'app/firstLoad') {
       try {
-        if (matchPath({ path: 'search', end: true }, location.pathname)) {
-          console.log("matchPath({ path: 'search', end: true }, location.pathname)");
-          const response = await axios.get('https://api.themoviedb.org/3/search/movie?', {
+        if (matchPath({ path: '', end: true }, location.pathname)) {
+          console.log("matchPath({ path: '', end: true }, location.pathname)");
+          const response = await axios.get('https://api.themoviedb.org/3/discover/movie?', {
             params: {
               api_key: '1939abe3d00976407f86acd63c341f94',
-              query: 'asd',
-              page: 1,
-              // sort_by: state.movieReducer.sortType + '.desc',
+              page: state.movieReducer.currentPage,
+              sort_by: state.movieReducer.sortType + '.desc',
             },
           });
-          dispatch(abcAction(response));
+          //dispatch(fetchMovies(state.movieReducer.currentPage, state.movieReducer.sortType));
+          //dispatch(movieSlice.actions.setMovies(response.data.results));
 
+          console.log(response);
           return next(action);
         }
       } catch {
@@ -69,21 +67,57 @@ export const routerMiddleware: Middleware =
         return next(action);
       }
     }
-
+    */
+    /*
+    if (action.type === ROUTER_ON_LOCATION_CHANGED) {
+      try {
+        if (matchPath({ path: 'search', end: true }, location.pathname)) {
+          const response = await axios.get('https://api.themoviedb.org/3/search/movie?', {
+            params: {
+              api_key: '1939abe3d00976407f86acd63c341f94',
+              query: state.searchMovieReducer.searchQuery,
+              page: 1,
+              // sort_by: state.movieReducer.sortType + '.desc',
+            },
+          });
+          dispatch(searchMovieAction(response.data.results));
+          console.log(response);
+          return next(action);
+        }
+      } catch {
+        console.log('fail');
+        return next(action);
+      }
+    }
+    */
+    /*
+    if (action.type === 'Movie/setCurrentPage') {
+      try {
+        if (matchPath({ path: '', end: true }, location.pathname)) {
+          const response = await axios.get('https://api.themoviedb.org/3/discover/movie?', {
+            params: {
+              api_key: '1939abe3d00976407f86acd63c341f94',
+              page: action.payload,
+              sort_by: state.movieReducer.sortType + '.desc',
+            },
+          });
+          dispatch(movieSlice.actions.setMovies(response.data.results));
+          return next(action);
+        }
+      } catch {
+        console.log('fail');
+        return next(action);
+      }
+    }
+    */
     return next(action);
   };
 
 function logger({ getState }: any) {
   return (next: any) => (action: any) => {
-    console.log('will dispatch', action);
-
-    // Call the next dispatch method in the middleware chain.
+    //console.log('will dispatch', action);
     const returnValue = next(action);
-
-    console.log('state after dispatch', getState());
-
-    // This will likely be the action itself, unless
-    // a middleware further in chain changed it.
+    //console.log('state after dispatch', getState());
     return returnValue;
   };
 }
@@ -94,7 +128,9 @@ export const setupStore = (history: History) => {
   return configureStore({
     reducer: createRootReducer(history),
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().prepend(getRouterMiddleware(history)).concat(logger, routerMiddleware),
+      getDefaultMiddleware()
+        .prepend(getRouterMiddleware(history))
+        .concat(logger, routerMiddleware, thunkMainPageMiddleware, thunkSearchPageMiddleware),
   });
 };
 
